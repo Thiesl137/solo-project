@@ -15,7 +15,6 @@ module.exports = {
     proxy: {
       "/db": {
         target: 'http://localhost:3000',
-
       }
     }
   },
