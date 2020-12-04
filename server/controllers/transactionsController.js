@@ -8,7 +8,15 @@ const transactionsController = {};
 transactionsController.createTest = (req, res, next) => {
   // write code here
   
-  Transactions.create({ date: new Date(), type: 'test', amount: 500})
+  const testTransaction = {
+    date: new Date(), 
+    type: 'income', 
+    name: 'paycheck',
+    amount: 500,
+    frequency: 'weekly'
+  }
+
+  Transactions.create(testTransaction)
     // .exec()
     .then(transactions => {
       console.log('transactions are: ', transactions)
@@ -17,9 +25,30 @@ transactionsController.createTest = (req, res, next) => {
     })
     .catch(err => {
       return next({
-        log: `transactionsController.test: ERROR: ${err}`,
+        log: `transactionsController.createTest: ERROR: ${err}`,
         message: {
-          err: 'Error occurred in transactionsController.test. Check server logs for more details...',
+          err: 'Error occurred in transactionsController.createTest. Check server logs for more details...',
+        },
+      });
+    });
+}
+
+
+transactionsController.eraseAllTransactions = (req, res, next) => {
+  // write code here
+
+  Transactions.remove({})
+    // .exec()
+    .then(transactions => {
+      console.log('removed is: ', transactions)
+      res.locals.transactions = transactions;
+      return next();
+    })
+    .catch(err => {
+      return next({
+        log: `transactionsController.eraseAllTransactions: ERROR: ${err}`,
+        message: {
+          err: 'Error occurred in transactionsController.eraseAllTransactions. Check server logs for more details...',
         },
       });
     });

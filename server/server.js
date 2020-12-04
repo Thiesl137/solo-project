@@ -9,6 +9,9 @@ const PORT = 3000;
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+//ROUTERS
+
+//Route to db Routes!
 app.use('/db', dbRouter);
 
 
@@ -38,4 +41,4 @@ app.use((err, req, res, next) => {
   return res.status(errorObj.status).json(errorObj.message);
 });
 
-app.listen(PORT, () => {console.log(`Listening on port ${PORT}`)}); //listens on port 3000 -> http://localhost:3000/
+app.listen(PORT, () => {console.log(`Listening on port ${PORT} NODE_ENV = ${process.env.NODE_ENV}`)}); //listens on port 3000 -> http://localhost:3000/

@@ -1,22 +1,23 @@
 import React, { Component } from 'react';
-import MainContainer from '../containers/MainContainer';
 
 
-class App extends Component {
+
+class TransactionsContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
       test: 'test'
     }
   }
-
+  
   render() {
     return (
-      <div class='app'>
-        <MainContainer />
+      <div class='transactionsContainer'>
+        <p>TransactionsContainer</p>
       </div>
     );
   }
 }
 
-export default App;
+
+export default TransactionsContainer;

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import MainContainer from '../containers/MainContainer';
+import Inputs from './Inputs'
 
-
-class App extends Component {
+class IncomeInput extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -12,11 +11,11 @@ class App extends Component {
 
   render() {
     return (
-      <div class='app'>
-        <MainContainer />
+      <div class='incomeInput'>
+        <Inputs name="Income"/>
       </div>
     );
   }
 }
 
-export default App;
+export default IncomeInput;
