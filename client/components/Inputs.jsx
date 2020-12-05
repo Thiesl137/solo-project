@@ -11,18 +11,18 @@ class Inputs extends Component {
 
   render() {
     return ( //propdrill
-      <div class='inputs'>
+      <div className='inputs'>
         <p>{this.props.name}</p> 
         <div>
-          <label for="name">Name: </label>
+          <label htmlFor="name">Name: </label>
           <input type="text" id="name" name="name" />
         </div>
         <div>
-          <label for="amount">Amount: </label>
+          <label htmlFor="amount">Amount: </label>
           <input type="number" id="amount" name="amount" />
         </div>
         <div>
-          <label for="frequency">Frequency: </label>
+          <label htmlFor="frequency">Frequency: </label>
           <select id="frequency" name="frequency">
             <option value="weekly">Weekly</option>
             <option value="bi-weekly">Bi-weekly</option>

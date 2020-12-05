@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
+import Transactions from '../components/Transactions'
 
+const mapStateToProps = state => {
 
+}
+
+const mapDispatchtoProps = dispatch => {
+
+}
 
 class TransactionsContainer extends Component {
   constructor(props) {
@@ -9,11 +16,12 @@ class TransactionsContainer extends Component {
       test: 'test'
     }
   }
-  
+
   render() {
     return (
-      <div class='transactionsContainer'>
+      <div className='transactionsContainer'>
         <p>TransactionsContainer</p>
+        <Transactions />
       </div>
     );
   }

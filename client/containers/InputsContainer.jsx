@@ -15,7 +15,7 @@ class InputsContainer extends Component {
   
   render() {
     return (
-      <div class='inputsContainer'>
+      <div className='inputsContainer'>
         <p>InputsContainer</p>
         <IncomeInput />
         <hr></hr>

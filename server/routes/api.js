@@ -9,6 +9,13 @@ router.get('/test', transactionsController.createTest, (req, res) => {
   return res.status(200).json(res.locals.transactions);
 });
 
+//GET ALL ENTRIES IN DB
+router.get('/getAllTransactions', transactionsController.getAllTransactions, (req, res) => {
+  // console.log(res.locals.transactions);
+  // return next(res.locals.transactions)
+  return res.status(200).json(res.locals.transactions);
+});
+
 router.get('/clear', transactionsController.eraseAllTransactions, (req, res) => {
   //respond with message of number of deleted transactions
   

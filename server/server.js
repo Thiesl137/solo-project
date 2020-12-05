@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
-const dbRouter = require('./routes/db');
+const apiRouter = require('./routes/api');
 
 const PORT = 3000;
 
@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //ROUTERS
 
 //Route to db Routes!
-app.use('/db', dbRouter);
+app.use('/api', apiRouter);
 
 
 

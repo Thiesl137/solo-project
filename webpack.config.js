@@ -9,11 +9,17 @@ module.exports = {
     filename: "bundle.js"
   },
   mode: process.env.NODE_ENV,
-  
+
+  // node: {
+  //   fs: "empty"
+  // },
+  // node: { global: true, fs: 'empty' },
+  // target: 'node',
+
   devServer: {
     publicPath: '/build/',
     proxy: {
-      "/db": {
+      "/api": {
         target: 'http://localhost:3000',
       }
     }
@@ -27,7 +33,7 @@ module.exports = {
     rules: [
       {
         test: /\.jsx?$/,
-        exclude: /(node_modules|bower_components)/, //could use path
+        exclude: /node_modules/,
         use:{
             loader: 'babel-loader',
             options: {

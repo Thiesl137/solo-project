@@ -12,7 +12,7 @@ class DbsContainer extends Component {
   
   render() {
     return (
-      <div class='dbsContainer'>
+      <div className='dbsContainer'>
         <p>DbsContainer</p>
       </div>
     );

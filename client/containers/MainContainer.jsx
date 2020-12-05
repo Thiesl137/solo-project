@@ -14,7 +14,7 @@ class MainContainer extends Component {
 
   render() {
     return (
-      <div class='mainContainer'>
+      <div className='mainContainer'>
         <InputsContainer />
         <DbsContainer />
         <TransactionsContainer />

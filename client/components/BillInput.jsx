@@ -11,7 +11,7 @@ class BillInput extends Component {
 
   render() {
     return (
-      <div class='billInput'>
+      <div className='billInput'>
         <Inputs name="Bill"/>
       </div>
     );

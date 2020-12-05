@@ -1,4 +1,4 @@
-const { Transactions } = require('../models/transactionsModels');
+const model = require('../models/transactionsModels');
 
 
 const transactionsController = {};
@@ -16,7 +16,7 @@ transactionsController.createTest = (req, res, next) => {
     frequency: 'weekly'
   }
 
-  Transactions.create(testTransaction)
+  model.Transactions.create(testTransaction)
     // .exec()
     .then(transactions => {
       console.log('transactions are: ', transactions)
@@ -37,7 +37,7 @@ transactionsController.createTest = (req, res, next) => {
 transactionsController.eraseAllTransactions = (req, res, next) => {
   // write code here
 
-  Transactions.remove({})
+  model.Transactions.remove({})
     // .exec()
     .then(transactions => {
       console.log('removed is: ', transactions)
@@ -49,6 +49,26 @@ transactionsController.eraseAllTransactions = (req, res, next) => {
         log: `transactionsController.eraseAllTransactions: ERROR: ${err}`,
         message: {
           err: 'Error occurred in transactionsController.eraseAllTransactions. Check server logs for more details...',
+        },
+      });
+    });
+}
+
+transactionsController.getAllTransactions = (req, res, next) => {
+  // write code here
+
+  model.Transactions.find({})
+    // .exec()
+    .then(transactions => {
+      // console.log('getAllTransactions is: ', transactions)
+      res.locals.transactions = transactions;
+      return next();
+    })
+    .catch(err => {
+      return next({
+        log: `transactionsController.getAllTransactions: ERROR: ${err}`,
+        message: {
+          err: 'Error occurred in transactionsController.getAllTransactions. Check server logs for more details...',
         },
       });
     });

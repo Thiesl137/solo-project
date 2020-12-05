@@ -11,7 +11,7 @@ class IncomeInput extends Component {
 
   render() {
     return (
-      <div class='incomeInput'>
+      <div className='incomeInput'>
         <Inputs name="Income"/>
       </div>
     );
