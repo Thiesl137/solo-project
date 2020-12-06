@@ -6,7 +6,9 @@ module.exports = {
   entry: path.resolve(__dirname, 'client/index.js'),
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: "bundle.js"
+    filename: "bundle.js",
+    sourceMapFilename: "bundle.js.map"
+
   },
   mode: process.env.NODE_ENV,
 
@@ -31,6 +33,11 @@ module.exports = {
 
   module: {
     rules: [
+      {
+        test: /\.js$/,
+        enforce: 'pre',
+        use: ['source-map-loader'],
+      },
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,

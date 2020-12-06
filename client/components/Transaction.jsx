@@ -4,6 +4,7 @@ import React from 'react';
 const Transaction = ({
   info
 }) => {
+  
   const {amount,
     date,
     frequency,

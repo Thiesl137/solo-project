@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Inputs from './Inputs'
+import Inputs from '../components/Inputs'
 
-class ExpenseInput extends Component {
+class BillInputContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -11,11 +11,11 @@ class ExpenseInput extends Component {
 
   render() {
     return (
-      <div className='expenseInput'>
-        <Inputs name="Expense"/>
+      <div className='billInput'>
+        <Inputs name="Bill"/>
       </div>
     );
   }
 }
 
-export default ExpenseInput;
+export default BillInputContainer;

@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-
-
 class DbsContainer extends Component {
   constructor(props) {
     super(props);
@@ -18,6 +16,5 @@ class DbsContainer extends Component {
     );
   }
 }
-
 
 export default DbsContainer;

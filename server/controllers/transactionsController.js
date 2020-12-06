@@ -55,7 +55,6 @@ transactionsController.eraseAllTransactions = (req, res, next) => {
 }
 
 transactionsController.getAllTransactions = (req, res, next) => {
-  // write code here
 
   model.Transactions.find({})
     // .exec()

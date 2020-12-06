@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import Inputs from './Inputs'
 
-class IncomeInput extends Component {
+import Inputs from '../components/Inputs'
+
+class IncomeInputContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -18,4 +19,4 @@ class IncomeInput extends Component {
   }
 }
 
-export default IncomeInput;
+export default IncomeInputContainer;

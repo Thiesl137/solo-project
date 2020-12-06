@@ -5,3 +5,7 @@ export const test = (test) => ({
   payload: test,
 });
 
+export const getAllTransactions = (transactions) => ({
+  type: types.GET_ALL_TRANSACTIONS,
+  payload: transactions,
+});

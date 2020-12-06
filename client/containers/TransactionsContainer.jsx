@@ -1,31 +1,40 @@
 import React, { Component } from 'react';
-import Transactions from '../components/Transactions'
+import { connect } from 'react-redux';
 
-const mapStateToProps = state => {
+// import * as actions from '../actions/actions';
 
-}
+import TransactionContainer from './TransactionContainer'
 
-const mapDispatchtoProps = dispatch => {
+const mapStateToProps = state => ({
+  // transactions: state.transactions
+});
 
-}
+const mapDispatchToProps = dispatch => ({
+  // getAllTransactions() {
+  //   fetch('/api/getAllTransactions')
+  //   .then(res => res.json())
+  //   .then((transactions) => {
+  //     console.log('transactions in fetch is ', transactions);
+  //     return dispatch(actions.getAllTransactions(transactions))
+  //   })
+  //   .catch(err => {
+  //     console.log('Error in loadFromMongo in store.js: getAllTransactions: ERROR: ', err)
+  //     return undefined;
+  //   })
+  // },
+});
 
-class TransactionsContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      test: 'test'
-    }
-  }
+function TransactionsContainer(props) {
 
-  render() {
     return (
       <div className='transactionsContainer'>
         <p>TransactionsContainer</p>
-        <Transactions />
+        <TransactionContainer 
+          transactions={props.transactions}
+        />
       </div>
     );
   }
-}
 
 
 export default TransactionsContainer;

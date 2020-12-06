@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
-import ExpenseInput from '../components/ExpenseInput';
-import IncomeInput from '../components/IncomeInput';
-import BillInput from '../components/BillInput';
+import { connect } from 'react-redux';
 
+import ExpenseInput from './ExpenseInputContainer';
+import IncomeInput from './IncomeInputContainer';
+import BillInput from './BillInputContainer';
 
+const mapStateToProps = state => ({});
+
+const mapDispatchToProps = dispatch => ({});
 
 class InputsContainer extends Component {
   constructor(props) {
@@ -28,4 +32,4 @@ class InputsContainer extends Component {
 }
 
 
-export default InputsContainer;
+export default connect(mapStateToProps, mapDispatchToProps)(InputsContainer);
