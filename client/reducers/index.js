@@ -4,7 +4,7 @@ import transactionsReducer from './transactionsReducer';
 
 const reducers = combineReducers({
   // if we had other reducers, they would go here
-  transactions: transactionsReducer,
+  database: transactionsReducer,
 });
 
 export default reducers;

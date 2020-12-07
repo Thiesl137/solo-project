@@ -3,7 +3,7 @@ import Transaction from '../components/Transaction'
 
 
 function TransactionContainer(props) {
-    
+
   if (!props.transactions) return (
     <div>
       <h1>Loading data, please wait...</h1>
@@ -26,7 +26,7 @@ function TransactionContainer(props) {
       />
     );
   });
-  
+
   return (
     <div className='transactions'>
       <p>Transactions</p>
