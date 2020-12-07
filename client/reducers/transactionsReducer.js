@@ -7,6 +7,7 @@ const transactionsReducer = (state=states.transactionsState, action) => {
   let amount;
   let frequency;
   let incomeInput;
+  let messageBoard;
 
   console.log('state in reducer is: ', state)
 
@@ -19,6 +20,7 @@ const transactionsReducer = (state=states.transactionsState, action) => {
         }
     
     //updates state with all transactions retrieved from MongoDB
+    
     case types.GET_ALL_TRANSACTIONS:
 
       transactions = action.payload;
@@ -26,6 +28,15 @@ const transactionsReducer = (state=states.transactionsState, action) => {
       return {
         ...state,
         transactions
+      }
+      
+    case types.DELETE_ALL_TRANSACTIONS:
+
+      state = states.transactionsState;
+      console.log("action.payload in DELETE_ALL_TRANSACTIONS is: ", action.payload);
+      messageBoard = action.payload.messageBoard;
+      return {
+        ...state,
       }
 
     //Updates state with current income transaction to post to MondoDB

@@ -25,8 +25,11 @@ router.post('/income', transactionsController.postIncome, (req, res) => {
 router.get('/clear', transactionsController.eraseAllTransactions, (req, res) => {
   //respond with message of number of deleted transactions
   
-  console.log('Erased All Transactions!!! Deleted ')
-  return res.status(200).json(`Erased All Transactions!!! Deleted ${res.locals.transactions.deletedCount} transactions.`);
+  console.log(`Erased All Transactions!!! Deleted ${res.locals.transactions.deletedCount} transactions.`)
+  return res.status(200).json({
+    'deletedCount': res.locals.transactions.deletedCount,
+    'messageBoard': `Erased All Transactions!!! Deleted ${res.locals.transactions.deletedCount} transactions.`
+  });
 });
 
 

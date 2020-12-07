@@ -5,9 +5,11 @@ import * as actions from '../actions/actions';
 import InputsContainer from './InputsContainer';
 import TransactionsContainer from './TransactionsContainer'
 import DbsContainer from './DbsContainer'
+import DeleteButton from '../components/DeleteButton'
 
 const mapStateToProps = state => ({
-  transactions: state.database.transactions
+  transactions: state.database.transactions,
+  messageBoard: state.feedback.messageBoard 
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -15,7 +17,7 @@ const mapDispatchToProps = dispatch => ({
     fetch('/api/getAllTransactions')
       .then(res => res.json())
       .then((transactions) => {
-        console.log('transactions in fetch is ', transactions);
+        console.log('transactions in getAllTransactions is ', transactions);
         return dispatch(actions.getAllTransactions(transactions))
       })
       .catch(err => {
@@ -23,6 +25,20 @@ const mapDispatchToProps = dispatch => ({
         return undefined;
       })
   },
+
+  deleteAllTransactions() {
+    fetch('/api/clear')
+      .then(res => res.json())
+      .then((numDeleted) => {
+        console.log('numDeleted in DeleteAllTransactions is ', numDeleted);
+        return dispatch(actions.deleteAllTransactions(numDeleted))
+      })
+      .catch(err => {
+        console.log('Error in loadFromMongo in mainContainer.js: deletellTransactions: ERROR: ', err)
+        return undefined;
+      })
+  },
+
 });
 
 class MainContainer extends Component {
@@ -42,6 +58,9 @@ class MainContainer extends Component {
         <TransactionsContainer
           transactions={this.props.transactions}
         />
+        <DeleteButton 
+          flag="ALL" 
+          handleClick={this.props.deleteAllTransactions}/>
       </div>
     );
   }

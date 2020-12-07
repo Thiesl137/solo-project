@@ -8,3 +8,7 @@ export const transactionsState = {
       frequency: 'weekly'
     }
   };
+
+export const feedbackState = {
+    messageBoard: '',
+  };
