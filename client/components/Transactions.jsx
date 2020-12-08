@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import Transaction from '../components/Transaction'
+import React from 'react';
+import Transaction from './Transaction'
 
 
 function TransactionContainer(props) {
@@ -14,7 +14,7 @@ function TransactionContainer(props) {
 
   if (!transactions) return null;
 
-  console.log("Transactions in Transaction.jsx is: ", props.transactions) //Getting HERE, need to figure out how to make asynchronous fetch requests in comonent did mount and/or why it is not pushing through the rerendering cycle to display the components.
+  console.log("Transactions in Transaction.jsx is: ", props.transactions)
 
   if (!transactions.length) return false;
 

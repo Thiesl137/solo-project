@@ -3,30 +3,32 @@ import React, { Component } from 'react';
 
 const Inputs = ({
   name,
+  updateDatabase,
+  handleChange
 }) =>{
 
-  return ( //propdrill
-      <div className='inputs'>
+  return (
+    <form className='inputs'>
       <p>{name}</p> 
       <div>
         <label htmlFor="name">Name: </label>
-        <input type="text" id={name + "Input"} name="name" />
+        <input type="text" id={name + "Input"} name="name" onChange={handleChange}/>
       </div>
       <div>
         <label htmlFor="amount">Amount: </label>
-        <input type="number" id="amount" name="amount" />
+        <input type="number" id="amount" name="amount" onChange={handleChange}/>
       </div>
       <div>
         <label htmlFor="frequency">Frequency: </label>
-        <select id="frequency" name="frequency">
+        <select id="frequency" name="frequency" onChange={handleChange}>
           <option value="weekly">Weekly</option>
           <option value="bi-weekly">Bi-weekly</option>
           <option value="monthly">Monthly</option>
           <option value="one-time">One-Time</option>
         </select>
       </div>
-      <button type="submit" value="submit" >Submit</button>
-    </div>
+      <button type="submit" value="submit" onClick={updateDatabase}>Submit</button>
+    </form>
   );
 }
 

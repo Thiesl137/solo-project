@@ -26,7 +26,6 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-
 class MainContainer extends Component {
   constructor(props) {
     super(props);
@@ -37,7 +36,6 @@ class MainContainer extends Component {
     this.props.getAllTransactions();
 
   }
-
 
   render() {
     return (

@@ -4,9 +4,6 @@ import Inputs from '../components/Inputs'
 class BillInputContainer extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      test: 'test'
-    }
   }
 
   render() {
