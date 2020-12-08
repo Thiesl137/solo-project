@@ -26,9 +26,8 @@ const mapDispatchToProps = dispatch => ({
 
   updateDatabase(event, state) {
     event.preventDefault();
-    console.log('state In updateDatabase: ', state)
-    console.log('event In updateDatabase: ', event)
-  
+    console.log('state in updateDatabase is: ', state)
+
     fetch('/api/income',
       {
         method: "POST",
@@ -40,7 +39,7 @@ const mapDispatchToProps = dispatch => ({
       })
       .then(res => res.json())
       .then((income) => {
-        console.log('transactions in post is ', income);
+        console.log('transactions in post response updateDatabase is ', income);
         return dispatch(actions.postIncome(income))
       })
       .catch(err => {

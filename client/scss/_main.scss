@@ -29,10 +29,25 @@ body {
   width: 50%;
 }
 
+.transactions {
+  border: 1px solid rgb(1, 255, 1);
+  width: 100%;
+}
+
 .inputs {
   border: 1px dotted pink;
 }
 
 .transaction {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-content: center;
   border: 1px dotted yellow;
+}
+
+.transaction p {
+  width: 20%;
+  margin: auto;
 }

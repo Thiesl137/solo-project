@@ -15,8 +15,10 @@ const Transaction = ({
 
   return (
     <div className='transaction'>
-      <p>{'amount: ' + amount}</p>
+      <p>{'name: ' + name}</p>
+      <p>{'frequency: ' + frequency}</p>
       <p>{'date: ' + date}</p>
+      <p>{'amount: ' + amount}</p>
       <button>DELETE</button>
     </div>
   );

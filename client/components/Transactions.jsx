@@ -13,9 +13,6 @@ function TransactionContainer(props) {
   const transactions = props.transactions;
 
   if (!transactions) return null;
-
-  console.log("Transactions in Transaction.jsx is: ", props.transactions)
-
   if (!transactions.length) return false;
 
   const transElems = transactions.map((trans, i) => {

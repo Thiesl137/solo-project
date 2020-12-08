@@ -8,7 +8,7 @@ class ExpenseInputContainer extends Component {
 
   render() {
     return (
-      <div className='expenseInput'>
+      <div className='expenseInputContainer'>
         <Inputs name="Expense"/>
       </div>
     );

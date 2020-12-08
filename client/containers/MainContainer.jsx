@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/actions';
 
-
 import InputsContainer from './InputsContainer';
 import TransactionsContainer from './TransactionsContainer'
 import DbsContainer from './DbsContainer'
@@ -34,10 +33,6 @@ class MainContainer extends Component {
   componentDidMount() {
     this.props.getAllTransactions();
   }
-  
-  // componentDidUpdate() {
-  //   this.props.getAllTransactions();
-  // }
 
   render() {
     return (

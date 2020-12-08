@@ -8,13 +8,12 @@ function TransactionsContainer(props) {
 
     return (
       <div className='transactionsContainer'>
-        <p>Transactions</p>
+        <p>Transactions Container</p>
         <Transactions 
           transactions={props.transactions}
         />
       </div>
     );
   }
-
 
 export default TransactionsContainer;

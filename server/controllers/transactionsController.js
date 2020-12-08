@@ -1,5 +1,7 @@
 const model = require('../models/transactionsModels');
 
+let { DateTime } = require('luxon')
+
 
 const transactionsController = {};
 
@@ -72,20 +74,51 @@ transactionsController.getAllTransactions = (req, res, next) => {
       });
     });
 }
-transactionsController.postIncome = (req, res, next) => {
-  // write code here
-  
 
-  const incomeTransaction = {
-    date: new Date(), 
+transactionsController.postIncome = (req, res, next) => {
+  
+  const today = DateTime.local();
+
+  const {frequency} = req.body;
+  let dateMultiplier;
+  const reoccurringTransaction = [];
+
+  switch(frequency) {
+    case 'weekly': 
+      dateMultiplier = 7;
+      break;
+    case 'bi-weekly':
+      dateMultiplier = 14;
+      break;
+    case 'monthly': //configure this to day of month
+      dateMultiplier = 29;
+      break;
+    case 'default': 
+      break;
+  }
+
+  const oneTimeTransaction = {
+    date: today, 
     type: 'income', 
     name: req.body.name,
     amount: req.body.amount,
     frequency: req.body.frequency
   }
 
-  model.Transactions.create(incomeTransaction)
-    // .exec()
+  if (frequency === 'one-time') reoccurringTransaction.push(oneTimeTransaction);
+  else {
+    for (let i = 0; i < 10; i++){
+      reoccurringTransaction.push({
+        date: today.plus({days: dateMultiplier*i}), 
+        type: 'income', 
+        name: req.body.name,
+        amount: req.body.amount,
+        frequency: req.body.frequency
+      })
+    }
+  }
+
+  model.Transactions.insertMany(reoccurringTransaction)
     .then(income => {
       console.log('transactions are: ', income)
       res.locals.income = income;
