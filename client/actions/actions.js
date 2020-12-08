@@ -10,7 +10,7 @@ export const getAllTransactions = (transactions) => ({
   payload: transactions,
 });
 
-export const postIncomeToDatabase = (income) => ({
+export const postIncome = (income) => ({
   type: types.POST_INCOME,
   payload: income
 })

@@ -72,5 +72,33 @@ transactionsController.getAllTransactions = (req, res, next) => {
       });
     });
 }
+transactionsController.postIncome = (req, res, next) => {
+  // write code here
+  
+
+  const incomeTransaction = {
+    date: new Date(), 
+    type: 'income', 
+    name: req.body.name,
+    amount: req.body.amount,
+    frequency: req.body.frequency
+  }
+
+  model.Transactions.create(incomeTransaction)
+    // .exec()
+    .then(income => {
+      console.log('transactions are: ', income)
+      res.locals.income = income;
+      return next();
+    })
+    .catch(err => {
+      return next({
+        log: `transactionsController.createTest: ERROR: ${err}`,
+        message: {
+          err: 'Error occurred in transactionsController.createTest. Check server logs for more details...',
+        },
+      });
+    });
+}
 
 module.exports = transactionsController;

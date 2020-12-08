@@ -21,16 +21,32 @@ const mapDispatchToProps = dispatch => ({
     const name = event.target.name;
     const value = event.target.value;
 
-    return dispatch(actions.postIncomeToDatabase({[name]:value}))
-
-    
+    return dispatch(actions.postIncome({[name]:value})) 
   },
 
-  updateDatabase(event) {
+  updateDatabase(event, state) {
     event.preventDefault();
-    console.log('In postIncomeToDatabase')
-    
-    return dispatch(actions.postIncomeToDatabase())
+    console.log('state In updateDatabase: ', state)
+    console.log('event In updateDatabase: ', event)
+  
+    fetch('/api/income',
+      {
+        method: "POST",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(state)
+      })
+      .then(res => res.json())
+      .then((income) => {
+        console.log('transactions in post is ', income);
+        return dispatch(actions.postIncome(income))
+      })
+      .catch(err => {
+        console.log('Error in loadFromMongo in mainContainer.js: getAllTransactions: ERROR: ', err)
+        return undefined;
+      })
   },
 });
 
@@ -46,6 +62,7 @@ class InputsContainer extends Component {
         <IncomeInput 
           updateDatabase={this.props.updateDatabase}
           handleChange={this.props.handleChange}
+          incomeInput={this.props.incomeInput}
         />
         <hr></hr>
         <ExpenseInput />

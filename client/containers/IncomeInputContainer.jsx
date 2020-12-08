@@ -14,6 +14,7 @@ class IncomeInputContainer extends Component {
           name="Income"
           updateDatabase={this.props.updateDatabase}
           handleChange={this.props.handleChange}
+          incomeInput={this.props.incomeInput}
         />
       </div>
     );

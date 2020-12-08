@@ -16,6 +16,12 @@ router.get('/getAllTransactions', transactionsController.getAllTransactions, (re
   return res.status(200).json(res.locals.transactions);
 });
 
+router.post('/income', transactionsController.postIncome, (req, res) => {
+  // console.log(res.locals.transactions);
+  // return next(res.locals.transactions)
+  return res.status(200).json(res.locals.income);
+});
+
 router.get('/clear', transactionsController.eraseAllTransactions, (req, res) => {
   //respond with message of number of deleted transactions
   

@@ -4,7 +4,8 @@ import React, { Component } from 'react';
 const Inputs = ({
   name,
   updateDatabase,
-  handleChange
+  handleChange,
+  incomeInput
 }) =>{
 
   return (
@@ -27,7 +28,7 @@ const Inputs = ({
           <option value="one-time">One-Time</option>
         </select>
       </div>
-      <button type="submit" value="submit" onClick={updateDatabase}>Submit</button>
+      <button type="submit" value="submit" onClick={(e) => updateDatabase(e, incomeInput)}>Submit</button>
     </form>
   );
 }

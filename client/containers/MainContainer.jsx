@@ -32,10 +32,12 @@ class MainContainer extends Component {
   }
 
   componentDidMount() {
-
     this.props.getAllTransactions();
-
   }
+  
+  // componentDidUpdate() {
+  //   this.props.getAllTransactions();
+  // }
 
   render() {
     return (
