@@ -21,7 +21,6 @@ transactionsController.createTest = (req, res, next) => {
   model.Transactions.create(testTransaction)
     // .exec()
     .then(transactions => {
-      console.log('transactions are: ', transactions)
       res.locals.transactions = transactions;
       return next();
     })
@@ -42,7 +41,6 @@ transactionsController.eraseAllTransactions = (req, res, next) => {
   model.Transactions.remove({})
     // .exec()
     .then(transactions => {
-      console.log('removed is: ', transactions)
       res.locals.transactions = transactions;
       return next();
     })
@@ -61,7 +59,6 @@ transactionsController.getAllTransactions = (req, res, next) => {
   model.Transactions.find({})
     // .exec()
     .then(transactions => {
-      // console.log('getAllTransactions is: ', transactions)
       res.locals.transactions = transactions;
       return next();
     })
@@ -75,53 +72,67 @@ transactionsController.getAllTransactions = (req, res, next) => {
     });
 }
 
-transactionsController.postIncome = (req, res, next) => {
+transactionsController.postTransaction = (req, res, next) => {
   
-  const today = DateTime.local();
-
-  const {frequency} = req.body;
-  let dateMultiplier;
+  const now = DateTime.local();
+  const {frequency, type, name, transactionDate, amount} = req.body;
   const reoccurringTransaction = [];
+  
+
+  let dateMultiplier;
+  let datePlusType;
+  let expenseModifier = -1;
+  let duration;
+
+  const transactionAmount = (type === 'expense') ? expenseModifier*amount : amount;  
 
   switch(frequency) {
     case 'weekly': 
-      dateMultiplier = 7;
+      datePlusType   = "weeks";
+      duration       = 52;
+      dateMultiplier = 1;
       break;
     case 'bi-weekly':
-      dateMultiplier = 14;
+      datePlusType   = "weeks";
+      duration       = 26;
+      dateMultiplier = 2;
       break;
     case 'monthly': //configure this to day of month
-      dateMultiplier = 29;
+      datePlusType   = "months";
+      duration       = 12;
+      dateMultiplier = 1;
       break;
     case 'default': 
       break;
   }
 
   const oneTimeTransaction = {
-    date: today, 
-    type: 'income', 
-    name: req.body.name,
-    amount: req.body.amount,
-    frequency: req.body.frequency
+    userInputDate: now, 
+    type, 
+    transactionDate,
+    name,
+    amount: transactionAmount,
+    frequency
   }
 
   if (frequency === 'one-time') reoccurringTransaction.push(oneTimeTransaction);
+
   else {
-    for (let i = 0; i < 10; i++){
+    for (let i = 0; i < duration; i++){
       reoccurringTransaction.push({
-        date: today.plus({days: dateMultiplier*i}), 
-        type: 'income', 
-        name: req.body.name,
-        amount: req.body.amount,
-        frequency: req.body.frequency
+        userInputDate: now, 
+        type,
+        transactionDate: DateTime.fromISO(transactionDate).plus({[datePlusType]: dateMultiplier*i}),
+        name,
+        amount: transactionAmount,
+        frequency
       })
     }
   }
 
   model.Transactions.insertMany(reoccurringTransaction)
-    .then(income => {
-      console.log('transactions are: ', income)
-      res.locals.income = income;
+    .then(transaction => {
+      res.locals.transaction = transaction;
       return next();
     })
     .catch(err => {

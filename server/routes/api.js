@@ -11,21 +11,16 @@ router.get('/test', transactionsController.createTest, (req, res) => {
 
 //GET ALL ENTRIES IN DB
 router.get('/getAllTransactions', transactionsController.getAllTransactions, (req, res) => {
-  // console.log(res.locals.transactions);
-  // return next(res.locals.transactions)
   return res.status(200).json(res.locals.transactions);
 });
 
-router.post('/income', transactionsController.postIncome, (req, res) => {
-  // console.log(res.locals.transactions);
-  // return next(res.locals.transactions)
-  return res.status(200).json(res.locals.income);
+//POST INCOME TO DATABASE
+router.post('/income', transactionsController.postTransaction, (req, res) => {
+  return res.status(200).json(res.locals.transaction);
 });
 
-router.get('/clear', transactionsController.eraseAllTransactions, (req, res) => {
-  //respond with message of number of deleted transactions
-  
-  console.log(`Erased All Transactions!!! Deleted ${res.locals.transactions.deletedCount} transactions.`)
+
+router.get('/clear', transactionsController.eraseAllTransactions, (req, res) => {  
   return res.status(200).json({
     'deletedCount': res.locals.transactions.deletedCount,
     'messageBoard': `Erased All Transactions!!! Deleted ${res.locals.transactions.deletedCount} transactions.`

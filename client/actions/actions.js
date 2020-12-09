@@ -15,7 +15,13 @@ export const deleteAllTransactions = (numDeleted) => ({
   payload: numDeleted
 });
 
-export const postIncome = (income) => ({
-  type: types.POST_INCOME,
-  payload: income
+export const postTransaction = (transaction) => ({
+  type: types.POST_TRANSACTION,
+  payload: transaction
 })
+
+
+export const updateMessageBoard = (message) => ({
+  type: types.UPDATE_MESSAGE_BOARD,
+  payload: message
+});

@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 const DeleteButton = ({
   flag,
   handleClick
@@ -12,6 +11,5 @@ const DeleteButton = ({
     </div>
   );
 }
-
 
 export default DeleteButton;

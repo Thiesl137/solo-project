@@ -3,9 +3,8 @@ import { connect } from 'react-redux';
 
 import * as actions from '../actions/actions';
 
-import ExpenseInput from './ExpenseInputContainer';
-import IncomeInput from './IncomeInputContainer';
-import BillInput from './BillInputContainer';
+import TransactionInputContainer from './TransactionInputContainer';
+
 
 
 const mapStateToProps = state => ({
@@ -15,18 +14,18 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
 
+  //configuring date entered and date transacted
+
   handleChange(event) {
-    console.log(`event.taget.name in handleChange is ${event.target.name}
-     event.target.value in handleChange is ${event.target.value}`)
+
     const name = event.target.name;
     const value = event.target.value;
 
-    return dispatch(actions.postIncome({[name]:value})) 
+    return dispatch(actions.postTransaction({[name]:value})) 
   },
 
   updateDatabase(event, state) {
     event.preventDefault();
-    console.log('state in updateDatabase is: ', state)
 
     fetch('/api/income',
       {
@@ -39,8 +38,7 @@ const mapDispatchToProps = dispatch => ({
       })
       .then(res => res.json())
       .then((income) => {
-        console.log('transactions in post response updateDatabase is ', income);
-        return dispatch(actions.postIncome(income))
+        return dispatch(actions.postTransaction(income))
       })
       .catch(err => {
         console.log('Error in loadFromMongo in mainContainer.js: getAllTransactions: ERROR: ', err)
@@ -58,15 +56,11 @@ class InputsContainer extends Component {
     return (
       <div className='inputsContainer'>
         <p>InputsContainer</p>
-        <IncomeInput 
+        <TransactionInputContainer 
           updateDatabase={this.props.updateDatabase}
           handleChange={this.props.handleChange}
           incomeInput={this.props.incomeInput}
         />
-        <hr></hr>
-        <ExpenseInput />
-        <hr></hr>
-        <BillInput />
       </div>
     );
   }

@@ -1,41 +1,51 @@
 body {
-  background: $lightBlue;
+  background: rgb(251, 252, 253);
+  
+}
+
+
+button {
+  color: lightseagreen;
+}
+
+form {
+  color: black;
 }
 
 .app {
-  border: 2px dashed magenta;
+  border: $border dashed magenta;
   
 }
 
 .mainContainer {
   display:flex; 
   flex-direction:row;
-  border: 1px dashed greenyellow;
+  border: $border dashed greenyellow;
 }
 
 .dbsContainer {
-  border: 1px solid purple;
-  width: 20%;
+  border: $border solid purple;
+  width: 100%;
   
 }
 .inputsContainer {
-  border: 1px solid green;
+  border: $border solid green;
   width: 30%;
   
 }
 
 .transactionsContainer {
-  border: 1px solid red;
-  width: 50%;
+  border: $border solid red;
+  width: 70%;
 }
 
 .transactions {
-  border: 1px solid rgb(1, 255, 1);
+  border: $border solid rgb(1, 255, 1);
   width: 100%;
 }
 
 .inputs {
-  border: 1px dotted pink;
+  border: $border dotted pink;
 }
 
 .transaction {
@@ -44,7 +54,7 @@ body {
   flex-wrap: nowrap;
   justify-content: space-between;
   align-content: center;
-  border: 1px dotted yellow;
+  border: $border dotted yellow;
 }
 
 .transaction p {

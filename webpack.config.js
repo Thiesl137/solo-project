@@ -12,12 +12,6 @@ module.exports = {
   },
   mode: process.env.NODE_ENV,
 
-  // node: {
-  //   fs: "empty"
-  // },
-  // node: { global: true, fs: 'empty' },
-  // target: 'node',
-
   devServer: {
     publicPath: '/build/',
     proxy: {
@@ -27,7 +21,7 @@ module.exports = {
     }
   },
 
-  resolve: { //Why is this needed?
+  resolve: { 
     extensions: ['.js', '.jsx']
   },
 

@@ -25,17 +25,12 @@ mongoose.connect(MONGO_URI, {
 const Schema = mongoose.Schema;
 
 const transactionSchema = new Schema({
-  date: Date,         //date of transaction
-  type: String,       //Income or Expense
-  name: String,       //name of transaction
-  amount: Number,     //dollar amount
-  frequency: String,  //weekly, bi-weekly, monthly, one-time
-
-  // homeworld_id: {
-  //   // type of ObjectId makes this behave like a foreign key referencing the 'planet' collection
-  //   type: Schema.Types.ObjectId,
-  //   ref: 'planet'
-  // }
+  userInputDate: Date,         //Date Entered
+  transactionDate: Date,      //Date of transaction
+  type: String,              //Income or Expense
+  name: String,              //name of transaction
+  amount: Number,            //dollar amount
+  frequency: String,         //weekly, bi-weekly, monthly, one-time
 });
 
 const Transactions = mongoose.model('transactions', transactionSchema);

@@ -6,6 +6,7 @@ import InputsContainer from './InputsContainer';
 import TransactionsContainer from './TransactionsContainer'
 import DbsContainer from './DbsContainer'
 import DeleteButton from '../components/DeleteButton'
+import MessageBoard from '../components/MessageBoard';
 
 const mapStateToProps = state => ({
   transactions: state.database.transactions,
@@ -17,7 +18,6 @@ const mapDispatchToProps = dispatch => ({
     fetch('/api/getAllTransactions')
       .then(res => res.json())
       .then((transactions) => {
-        console.log('transactions in getAllTransactions is ', transactions);
         return dispatch(actions.getAllTransactions(transactions))
       })
       .catch(err => {
@@ -29,9 +29,10 @@ const mapDispatchToProps = dispatch => ({
   deleteAllTransactions() {
     fetch('/api/clear')
       .then(res => res.json())
-      .then((numDeleted) => {
-        console.log('numDeleted in DeleteAllTransactions is ', numDeleted);
-        return dispatch(actions.deleteAllTransactions(numDeleted))
+      .then((deleted) => {
+        dispatch(actions.deleteAllTransactions(deleted))
+        dispatch(actions.updateMessageBoard(deleted))
+        return
       })
       .catch(err => {
         console.log('Error in loadFromMongo in mainContainer.js: deletellTransactions: ERROR: ', err)
@@ -52,15 +53,19 @@ class MainContainer extends Component {
 
   render() {
     return (
-      <div className='mainContainer'>
-        <InputsContainer />
+      <div>
+        <MessageBoard message={this.props.messageBoard}/>
+        <div className='mainContainer'>
+          <InputsContainer />
+          <TransactionsContainer
+            transactions={this.props.transactions}
+            />
+          <DeleteButton 
+            flag="ALL" 
+            handleClick={this.props.deleteAllTransactions}/>
+        </div>
         <DbsContainer />
-        <TransactionsContainer
-          transactions={this.props.transactions}
-        />
-        <DeleteButton 
-          flag="ALL" 
-          handleClick={this.props.deleteAllTransactions}/>
+
       </div>
     );
   }

@@ -3,9 +3,11 @@
 export const transactionsState = {
     transactions: [],
     incomeInput: {
-      name: '',
+      name: 'no name',
+      type: 'expense',
+      transactionDate: (new Date()).toISOString(),
       amount: 0,
-      frequency: 'weekly'
+      frequency: 'one-time'
     }
   };
 

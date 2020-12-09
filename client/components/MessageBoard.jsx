@@ -7,7 +7,7 @@ const MessageBoard = ({
 
   return (
     <div>
-      <button className='messageBoard' >{message}</button>
+      <h3>{message}</h3>
     </div>
   );
 }
