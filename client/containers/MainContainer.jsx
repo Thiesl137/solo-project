@@ -4,18 +4,18 @@ import * as actions from '../actions/actions';
 
 import InputsContainer from './InputsContainer';
 import TransactionsContainer from './TransactionsContainer'
-import DbsContainer from './DbsContainer'
-import DeleteButton from '../components/DeleteButton'
+
+
 import MessageBoard from '../components/MessageBoard';
 
 const mapStateToProps = state => ({
-  transactions: state.database.transactions,
+  transactions: state.transactionsDB.transactions,
   messageBoard: state.feedback.messageBoard 
 });
 
 const mapDispatchToProps = dispatch => ({
   getAllTransactions() {
-    fetch('/api/getAllTransactions')
+    fetch('/api/trans/getAllTransactions')
       .then(res => res.json())
       .then((transactions) => {
         return dispatch(actions.getAllTransactions(transactions))
@@ -27,7 +27,7 @@ const mapDispatchToProps = dispatch => ({
   },
 
   deleteAllTransactions() {
-    fetch('/api/clear')
+    fetch('/api/trans/clear')
       .then(res => res.json())
       .then((deleted) => {
         dispatch(actions.deleteAllTransactions(deleted))
@@ -36,6 +36,31 @@ const mapDispatchToProps = dispatch => ({
       })
       .catch(err => {
         console.log('Error in loadFromMongo in mainContainer.js: deletellTransactions: ERROR: ', err)
+        return undefined;
+      })
+  },
+
+  deleteAllBills() {
+    fetch('/api/bills/clear')
+      .then(res => res.json())
+      .then((deleted) => {
+        dispatch(actions.deleteAllBills(deleted))
+        return
+      })
+      .catch(err => {
+        console.log('Error in loadFromMongo in mainContainer.js: deletellTransactions: ERROR: ', err)
+        return undefined;
+      })
+  },
+
+  getAllBills() {
+    fetch('/api/bills/getAllBills')
+      .then(res => res.json())
+      .then((bills) => {
+        return dispatch(actions.getAllBills(bills))
+      })
+      .catch(err => {
+        console.log('Error in loadFromMongo in mainContainer.js: getAllBills: ERROR: ', err)
         return undefined;
       })
   },
@@ -49,6 +74,7 @@ class MainContainer extends Component {
 
   componentDidMount() {
     this.props.getAllTransactions();
+    this.props.getAllBills();
   }
 
   render() {
@@ -56,16 +82,17 @@ class MainContainer extends Component {
       <div>
         <MessageBoard message={this.props.messageBoard}/>
         <div className='mainContainer'>
-          <InputsContainer />
+          <InputsContainer 
+            buttonName="BILLS" 
+            handleClick={this.props.deleteAllBills}
+          />
           <TransactionsContainer
+            buttonName="TRANSACTIONS" 
+            handleClick={this.props.deleteAllTransactions}
             transactions={this.props.transactions}
-            />
-          <DeleteButton 
-            flag="ALL" 
-            handleClick={this.props.deleteAllTransactions}/>
+          />
+         
         </div>
-        <DbsContainer />
-
       </div>
     );
   }

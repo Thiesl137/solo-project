@@ -2,7 +2,7 @@
 
 export const transactionsState = {
     transactions: [],
-    incomeInput: {
+    transaction: {
       name: 'no name',
       type: 'expense',
       transactionDate: (new Date()).toISOString(),
@@ -14,3 +14,8 @@ export const transactionsState = {
 export const feedbackState = {
     messageBoard: '',
   };
+
+export const billsState = {
+  bills: [],
+  bill: {}
+}

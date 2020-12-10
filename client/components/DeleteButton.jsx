@@ -1,13 +1,13 @@
 import React from 'react';
 
 const DeleteButton = ({
-  flag,
+  buttonName,
   handleClick
 }) => {
 
   return (
     <div>
-      <button className='deleteButton' value={flag} onClick={handleClick}>DELETE {flag}</button>
+      <button className='deleteButton' value={buttonName} onClick={handleClick}>DELETE {buttonName}</button>
     </div>
   );
 }

@@ -15,10 +15,12 @@ router.get('/getAllTransactions', transactionsController.getAllTransactions, (re
 });
 
 //POST INCOME TO DATABASE
-router.post('/income', transactionsController.postTransaction, (req, res) => {
-  return res.status(200).json(res.locals.transaction);
+router.post('/transaction', transactionsController.postTransactions, (req, res) => {
+  return res.status(200).json({
+    transactions: res.locals.transactions,
+    billInfo: res.locals.billInfo
+  });
 });
-
 
 router.get('/clear', transactionsController.eraseAllTransactions, (req, res) => {  
   return res.status(200).json({

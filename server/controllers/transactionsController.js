@@ -1,14 +1,10 @@
-const model = require('../models/transactionsModels');
-
-let { DateTime } = require('luxon')
+const { Transactions } = require('../models/transactionsModel');
+const { DateTime } = require('luxon')
 
 
 const transactionsController = {};
 
-// Transactions.create({ date: new Date(), type: 'test', amount: 500})
-
 transactionsController.createTest = (req, res, next) => {
-  // write code here
   
   const testTransaction = {
     date: new Date(), 
@@ -18,7 +14,7 @@ transactionsController.createTest = (req, res, next) => {
     frequency: 'weekly'
   }
 
-  model.Transactions.create(testTransaction)
+  Transactions.create(testTransaction)
     // .exec()
     .then(transactions => {
       res.locals.transactions = transactions;
@@ -38,7 +34,7 @@ transactionsController.createTest = (req, res, next) => {
 transactionsController.eraseAllTransactions = (req, res, next) => {
   // write code here
 
-  model.Transactions.remove({})
+  Transactions.remove({})
     // .exec()
     .then(transactions => {
       res.locals.transactions = transactions;
@@ -56,7 +52,7 @@ transactionsController.eraseAllTransactions = (req, res, next) => {
 
 transactionsController.getAllTransactions = (req, res, next) => {
 
-  model.Transactions.find({})
+  Transactions.find({})
     // .exec()
     .then(transactions => {
       res.locals.transactions = transactions;
@@ -72,7 +68,7 @@ transactionsController.getAllTransactions = (req, res, next) => {
     });
 }
 
-transactionsController.postTransaction = (req, res, next) => {
+transactionsController.postTransactions = (req, res, next) => {
   
   const now = DateTime.local();
   const {frequency, type, name, transactionDate, amount} = req.body;
@@ -84,7 +80,7 @@ transactionsController.postTransaction = (req, res, next) => {
   let expenseModifier = -1;
   let duration;
 
-  const transactionAmount = (type === 'expense') ? expenseModifier*amount : amount;  
+  const transactionAmount = (type === 'expense' || type === 'bill') ? expenseModifier*amount : amount;  
 
   switch(frequency) {
     case 'weekly': 
@@ -120,19 +116,15 @@ transactionsController.postTransaction = (req, res, next) => {
   else {
     for (let i = 0; i < duration; i++){
       reoccurringTransaction.push({
-        userInputDate: now, 
-        type,
+        ...oneTimeTransaction,
         transactionDate: DateTime.fromISO(transactionDate).plus({[datePlusType]: dateMultiplier*i}),
-        name,
-        amount: transactionAmount,
-        frequency
       })
     }
   }
 
-  model.Transactions.insertMany(reoccurringTransaction)
-    .then(transaction => {
-      res.locals.transaction = transaction;
+  Transactions.insertMany(reoccurringTransaction)
+    .then(transactions => {
+      res.locals.transactions = transactions;
       return next();
     })
     .catch(err => {

@@ -2,15 +2,15 @@ import React from 'react';
 
 
 const Inputs = ({
-  updateDatabase,
+  postToDatabase,
   handleChange,
-  incomeInput
+  transaction
 }) =>{
   let today = new Date().toISOString().substr(0, 10);
 
   return (
     <form className='inputs'>
-     
+      <p>Inputs</p>
       <div>
         <label htmlFor="name">Name: </label>
         <input type="text" id="Transactions Input" name="name" onChange={handleChange}/>
@@ -40,11 +40,12 @@ const Inputs = ({
         <label htmlFor="type">Type: </label>
         <select id="type" name="type" onChange={handleChange}>
           <option value="expense">Expense</option>
+          <option value="bill">Bill</option>
           <option value="income">Income</option>
         </select>
       </div>
 
-      <button type="submit" value="submit" onClick={(e) => updateDatabase(e, incomeInput)}>Submit</button>
+      <button type="submit" value="submit" onClick={(e) => postToDatabase(e, transaction)}>Submit</button>
     </form>
   );
 }

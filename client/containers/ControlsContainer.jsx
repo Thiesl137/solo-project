@@ -2,22 +2,23 @@ import React, { Component } from 'react';
 
 import Inputs from '../components/Inputs'
 
-class TransactionInputContainer extends Component {
+class ControlsContainer extends Component {
   constructor(props) {
     super(props);
   }
 
   render() {
     return (
-      <div className='transactionInput'>
+      <div className='controlsContainer'>
+        <p>ControlsContainer</p>
         <Inputs 
-          updateDatabase={this.props.updateDatabase}
+          postToDatabase={this.props.postToDatabase}
           handleChange={this.props.handleChange}
-          incomeInput={this.props.incomeInput}
+          transaction={this.props.transaction}
         />
       </div>
     );
   }
 }
 
-export default TransactionInputContainer;
+export default ControlsContainer;

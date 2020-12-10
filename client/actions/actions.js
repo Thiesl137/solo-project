@@ -15,13 +15,27 @@ export const deleteAllTransactions = (numDeleted) => ({
   payload: numDeleted
 });
 
-export const postTransaction = (transaction) => ({
-  type: types.POST_TRANSACTION,
-  payload: transaction
+export const postTransactions = (transactions) => ({
+  type: types.POST_TRANSACTIONS,
+  payload: transactions
 })
-
 
 export const updateMessageBoard = (message) => ({
   type: types.UPDATE_MESSAGE_BOARD,
   payload: message
+});
+
+export const getAllBills = (bills) => ({
+  type: types.GET_ALL_BILLS,
+  payload: bills,
+});
+
+export const deleteAllBills = (numDeleted) => ({
+  type: types.DELETE_ALL_BILLS,
+  payload: numDeleted,
+});
+
+export const postBill = (bill) => ({
+  type: types.POST_BILL,
+  payload: bill,
 });

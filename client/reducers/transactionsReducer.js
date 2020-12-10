@@ -9,8 +9,9 @@ const transactionsReducer = (state=states.transactionsState, action) => {
   let type;
   let amount;
   let frequency;
-  let incomeInput;
+  let transaction;
   let messageBoard;
+
 
   const sortTransactionsByDate = (transactions) => {
     return transactions.sort((a, b) => DateTime.fromISO(a.transactionDate).toMillis() - DateTime.fromISO(b.transactionDate).toMillis())
@@ -32,8 +33,8 @@ const transactionsReducer = (state=states.transactionsState, action) => {
     case types.DELETE_ALL_TRANSACTIONS:
 
       transactions = [];
-      //update incomeInput.transaction date (reset). It's persisting seconds.
-      
+      //update transaction.transaction date (reset). It's persisting seconds.
+
       messageBoard = action.payload.messageBoard;
       return {
         ...state,
@@ -42,16 +43,19 @@ const transactionsReducer = (state=states.transactionsState, action) => {
       }
 
     //Updates state with current income transaction to post to MondoDB
-    case types.POST_TRANSACTION:
-      console.log(action.payload)
-      name              = (action.payload.name)            ? action.payload.name            : state.incomeInput.name;
-      transactionDate   = (action.payload.transactionDate) ? action.payload.transactionDate : state.incomeInput.transactionDate;
-      type              = (action.payload.type)            ? action.payload.type            : state.incomeInput.type;
-      amount            = (action.payload.amount)          ? action.payload.amount          : state.incomeInput.amount;
-      frequency         = (action.payload.frequency)       ? action.payload.frequency       : state.incomeInput.frequency;
+    case types.POST_TRANSACTIONS:
+      console.log('action.payload in reducer, POST_TRANSACTIONS is: ', action.payload)
+      const transactionsPayload = (action.payload.transactions) ? action.payload.transactions: [];
+      
+      //needed for forms not resetting to a defaultValue
+      name              = (action.payload.name)            ? action.payload.name            : state.transaction.name;
+      transactionDate   = (action.payload.transactionDate) ? action.payload.transactionDate : state.transaction.transactionDate;
+      type              = (action.payload.type)            ? action.payload.type            : state.transaction.type;
+      amount            = (action.payload.amount)          ? action.payload.amount          : state.transaction.amount;
+      frequency         = (action.payload.frequency)       ? action.payload.frequency       : state.transaction.frequency;
       transactions      = state.transactions.slice(); //do I nee immer here to clone deep?
-
-      incomeInput = {
+      
+      transaction = {
         name,
         type,
         transactionDate,
@@ -59,17 +63,18 @@ const transactionsReducer = (state=states.transactionsState, action) => {
         frequency,
       };
 
-      if (action.payload.length === 1) transactions.push(action.payload[0]);
-      if (action.payload.length > 1 ) action.payload.forEach(transaction => {
+      if (transactionsPayload.length === 1) transactions.push(transactionsPayload[0]);
+      if (transactionsPayload.length > 1 ) transactionsPayload.forEach(transaction => {
         transactions.push(transaction);
       });
 
       transactions = sortTransactionsByDate(transactions);
+      
 
       return {
         ...state,
         transactions,
-        incomeInput
+        transaction,
       }
 
     default:

@@ -3,31 +3,29 @@ import { connect } from 'react-redux';
 
 import * as actions from '../actions/actions';
 
-import TransactionInputContainer from './TransactionInputContainer';
-
-
+import ControlsContainer from './ControlsContainer';
+import BillsContainer from './BillsContainer'
+import DeleteButton from '../components/DeleteButton'
 
 const mapStateToProps = state => ({
-  incomeInput: state.database.incomeInput
-
+  transaction: state.transactionsDB.transaction,
+  bills: state.billsDB.bills
 });
 
 const mapDispatchToProps = dispatch => ({
-
-  //configuring date entered and date transacted
 
   handleChange(event) {
 
     const name = event.target.name;
     const value = event.target.value;
 
-    return dispatch(actions.postTransaction({[name]:value})) 
+    return dispatch(actions.postTransactions({[name]:value})) 
   },
 
-  updateDatabase(event, state) {
+  postToDatabase(event, state) {
     event.preventDefault();
 
-    fetch('/api/income',
+    fetch('/api/trans/transaction',
       {
         method: "POST",
         headers: {
@@ -37,13 +35,33 @@ const mapDispatchToProps = dispatch => ({
         body: JSON.stringify(state)
       })
       .then(res => res.json())
-      .then((income) => {
-        return dispatch(actions.postTransaction(income))
+      .then((transactions) => {
+        dispatch(actions.postTransactions(transactions))
       })
       .catch(err => {
-        console.log('Error in loadFromMongo in mainContainer.js: getAllTransactions: ERROR: ', err)
+        console.log('Error in loadFromMongo in mainContainer.js: PostTransactions: ERROR: ', err)
         return undefined;
+      });
+
+
+    fetch('/api/bills/post',
+      {
+        method: "POST",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(state)
       })
+      .then(res => res.json())
+      .then((bill) => {
+        console.log('bill in POST TO BILLS is: ', bill)
+        dispatch(actions.postBill(bill))
+      })
+      .catch(err => {
+        console.log('Error in loadFromMongo in mainContainer.js: postBill: ERROR: ', err)
+        return undefined;
+      });
   },
 });
 
@@ -55,12 +73,23 @@ class InputsContainer extends Component {
   render() {
     return (
       <div className='inputsContainer'>
-        <p>InputsContainer</p>
-        <TransactionInputContainer 
-          updateDatabase={this.props.updateDatabase}
+        
+        <ControlsContainer 
+          postToDatabase={this.props.postToDatabase}
           handleChange={this.props.handleChange}
-          incomeInput={this.props.incomeInput}
+          transaction={this.props.transaction}
         />
+
+        <BillsContainer 
+          bills={this.props.bills}
+        /> 
+
+        <DeleteButton 
+          buttonName={this.props.buttonName}
+          handleClick={this.props.handleClick}
+        />
+
+        
       </div>
     );
   }

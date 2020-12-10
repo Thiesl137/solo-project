@@ -2,7 +2,7 @@ import React from 'react';
 import Transaction from './Transaction'
 
 
-function TransactionContainer(props) {
+function Transactions(props) {
 
   if (!props.transactions) return (
     <div>
@@ -11,7 +11,7 @@ function TransactionContainer(props) {
   );
 
   const transactions = props.transactions;
-
+    
   if (!transactions) return null;
   if (!transactions.length) return false;
 
@@ -26,11 +26,12 @@ function TransactionContainer(props) {
 
   return (
     <div className='transactions'>
-      <p>Transactions</p>
+      <p>TRANSACTIONS HEADER HERE</p>
+        {/* <TransactionsHeader /> */}
       {transElems}
     </div>
   );
 }
 
 
-export default TransactionContainer;
+export default Transactions;
