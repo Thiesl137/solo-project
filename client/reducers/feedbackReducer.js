@@ -1,5 +1,5 @@
 import * as types from '../constants/actionTypes';
-import * as states from './state';
+import * as states from './states';
 
 const feedbackReducer = (state=states.feedbackState, action) => {
   //scoped variables
