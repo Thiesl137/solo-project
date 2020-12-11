@@ -4,7 +4,7 @@ const router = express.Router();
 
 //POST BILLS TO DATABASE
 router.post('/post', billsController.postBill, (req, res) => {
-  return res.status(200).json(res.locals.bills);
+  return res.status(200).json(res.locals.bill);
 });
 
 //GET ALL ENTRIES IN DB
@@ -13,7 +13,7 @@ router.get('/getAllBills', billsController.getAllBills, (req, res) => {
 });
 
 //CLEAR ALL BILLS FROM DATABASE
-router.get('/clear', billsController.eraseAllBills, (req, res) => {  
+router.delete('/clear', billsController.eraseAllBills, (req, res) => {  
   return res.status(200).json({
     'deletedCount': res.locals.bills.deletedCount,
     'messageBoard': `Erased All Bills!!! Deleted ${res.locals.bills.deletedCount} transactions.`

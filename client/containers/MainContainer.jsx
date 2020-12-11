@@ -27,24 +27,13 @@ const mapDispatchToProps = dispatch => ({
   },
 
   deleteAllTransactions() {
-    fetch('/api/trans/clear')
+    fetch('/api/trans/clear', {
+      method: 'DELETE'
+    })
       .then(res => res.json())
       .then((deleted) => {
         dispatch(actions.deleteAllTransactions(deleted))
         dispatch(actions.updateMessageBoard(deleted))
-        return
-      })
-      .catch(err => {
-        console.log('Error in loadFromMongo in mainContainer.js: deletellTransactions: ERROR: ', err)
-        return undefined;
-      })
-  },
-
-  deleteAllBills() {
-    fetch('/api/bills/clear')
-      .then(res => res.json())
-      .then((deleted) => {
-        dispatch(actions.deleteAllBills(deleted))
         return
       })
       .catch(err => {
@@ -64,7 +53,21 @@ const mapDispatchToProps = dispatch => ({
         return undefined;
       })
   },
-
+  
+  deleteAllBills() {
+    fetch('/api/bills/clear', {
+      method: 'DELETE',
+    })
+      .then(res => res.json())
+      .then((deleted) => {
+        dispatch(actions.deleteAllBills(deleted))
+        return
+      })
+      .catch(err => {
+        console.log('Error in loadFromMongo in mainContainer.js: deletellTransactions: ERROR: ', err)
+        return undefined;
+      })
+  },
 });
 
 class MainContainer extends Component {

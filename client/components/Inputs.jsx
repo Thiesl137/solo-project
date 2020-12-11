@@ -4,10 +4,12 @@ import React from 'react';
 const Inputs = ({
   postToDatabase,
   handleChange,
-  transaction
+  transaction,
+  billId
 }) =>{
   let today = new Date().toISOString().substr(0, 10);
-
+  console.log('billId in Inputs is: ', billId);
+  
   return (
     <form className='inputs'>
       <p>Inputs</p>
@@ -45,7 +47,9 @@ const Inputs = ({
         </select>
       </div>
 
-      <button type="submit" value="submit" onClick={(e) => postToDatabase(e, transaction)}>Submit</button>
+      <button type="button" value="submit" onClick={(event) => {
+        postToDatabase(event, transaction, billId); 
+      }}>Submit</button>
     </form>
   );
 }

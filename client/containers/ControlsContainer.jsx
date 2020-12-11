@@ -15,6 +15,7 @@ class ControlsContainer extends Component {
           postToDatabase={this.props.postToDatabase}
           handleChange={this.props.handleChange}
           transaction={this.props.transaction}
+          billId={this.props.billId}
         />
       </div>
     );

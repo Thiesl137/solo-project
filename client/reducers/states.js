@@ -1,5 +1,3 @@
-
-
 export const transactionsState = {
     transactions: [],
     transaction: {
@@ -7,7 +5,8 @@ export const transactionsState = {
       type: 'expense',
       transactionDate: (new Date()).toISOString(),
       amount: 0,
-      frequency: 'one-time'
+      frequency: 'one-time',
+      billId: 0
     }
   };
 
@@ -17,5 +16,6 @@ export const feedbackState = {
 
 export const billsState = {
   bills: [],
-  bill: {}
+  bill: {},
+  billId: 0
 }

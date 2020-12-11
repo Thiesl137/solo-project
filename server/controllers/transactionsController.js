@@ -71,7 +71,9 @@ transactionsController.getAllTransactions = (req, res, next) => {
 transactionsController.postTransactions = (req, res, next) => {
   
   const now = DateTime.local();
-  const {frequency, type, name, transactionDate, amount} = req.body;
+  console.log('req.body in transactionsController.postTransactions is: ', req.body)
+  const { frequency, type, name, transactionDate, amount } = req.body.transaction;
+  const { billId } = req.body;
   const reoccurringTransaction = [];
   
 
@@ -108,7 +110,8 @@ transactionsController.postTransactions = (req, res, next) => {
     transactionDate,
     name,
     amount: transactionAmount,
-    frequency
+    frequency,
+    billId
   }
 
   if (frequency === 'one-time') reoccurringTransaction.push(oneTimeTransaction);
@@ -121,7 +124,7 @@ transactionsController.postTransactions = (req, res, next) => {
       })
     }
   }
-
+  console.log('reoccurringTransaction in transactionsController.postTransactions is: ', reoccurringTransaction)
   Transactions.insertMany(reoccurringTransaction)
     .then(transactions => {
       res.locals.transactions = transactions;

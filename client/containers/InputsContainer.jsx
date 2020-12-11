@@ -9,7 +9,8 @@ import DeleteButton from '../components/DeleteButton'
 
 const mapStateToProps = state => ({
   transaction: state.transactionsDB.transaction,
-  bills: state.billsDB.bills
+  bills: state.billsDB.bills,
+  billId: state.billsDB.billId
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -22,27 +23,11 @@ const mapDispatchToProps = dispatch => ({
     return dispatch(actions.postTransactions({[name]:value})) 
   },
 
-  postToDatabase(event, state) {
+  postToDatabase(event, transaction, billId) {
     event.preventDefault();
-
-    fetch('/api/trans/transaction',
-      {
-        method: "POST",
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(state)
-      })
-      .then(res => res.json())
-      .then((transactions) => {
-        dispatch(actions.postTransactions(transactions))
-      })
-      .catch(err => {
-        console.log('Error in loadFromMongo in mainContainer.js: PostTransactions: ERROR: ', err)
-        return undefined;
-      });
-
+    
+    console.log('transaction in postToDatabase is: ', transaction)
+    console.log('billId in postToDatabase is: ', billId)
 
     fetch('/api/bills/post',
       {
@@ -51,19 +36,40 @@ const mapDispatchToProps = dispatch => ({
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(state)
+        body: JSON.stringify(transaction)
       })
       .then(res => res.json())
       .then((bill) => {
-        console.log('bill in POST TO BILLS is: ', bill)
-        dispatch(actions.postBill(bill))
+        // console.log('bill in response to POST to /bills/post before dispatch is: ', bill)
+        return dispatch(actions.postBill(bill))
       })
       .catch(err => {
         console.log('Error in loadFromMongo in mainContainer.js: postBill: ERROR: ', err)
         return undefined;
       });
+
+
+      fetch('/api/trans/transaction',
+      {
+        method: "POST",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({transaction, billId})
+      })
+      .then(res => res.json())
+      .then((transactions) => {
+        // console.log('transactions in response to POST to /trans/post before dispatch is: ', transactions)
+        return dispatch(actions.postTransactions(transactions))
+      })
+      .catch(err => {
+        console.log('Error in loadFromMongo in mainContainer.js: PostTransactions: ERROR: ', err)
+        return undefined;
+      });
   },
 });
+
 
 class InputsContainer extends Component {
   constructor(props) {
@@ -78,6 +84,7 @@ class InputsContainer extends Component {
           postToDatabase={this.props.postToDatabase}
           handleChange={this.props.handleChange}
           transaction={this.props.transaction}
+          billId={this.props.billId}
         />
 
         <BillsContainer 
@@ -89,7 +96,6 @@ class InputsContainer extends Component {
           handleClick={this.props.handleClick}
         />
 
-        
       </div>
     );
   }

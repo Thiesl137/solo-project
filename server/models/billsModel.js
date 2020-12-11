@@ -9,6 +9,7 @@ const billSchema = new Schema({
   name: String,              //name of transaction
   amount: Number,            //dollar amount
   frequency: String,         //weekly, bi-weekly, monthly, one-time
+  billId: String,
 });
 
 const Bills = mongoose.model('bills', billSchema);

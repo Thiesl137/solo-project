@@ -4,11 +4,12 @@ const Schema = mongoose.Schema;
 
 const transactionSchema = new Schema({
   userInputDate: Date,         //Date Entered
-  transactionDate: Date,      //Date of transaction
-  type: String,              //Income or Expense
-  name: String,              //name of transaction
-  amount: Number,            //dollar amount
-  frequency: String,         //weekly, bi-weekly, monthly, one-time
+  transactionDate: Date,       //Date of transaction
+  type: String,                //Income or Expense
+  name: String,                //name of transaction
+  amount: Number,              //dollar amount
+  frequency: String,           //weekly, bi-weekly, monthly, one-time
+  billId: String,
 });
 
 const Transactions = mongoose.model('transactions', transactionSchema);

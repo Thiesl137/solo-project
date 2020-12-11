@@ -1,5 +1,5 @@
 import * as types from '../constants/actionTypes';
-import * as states from './state';
+import * as states from './states';
 const { DateTime } = require("luxon")
 
 const transactionsReducer = (state=states.transactionsState, action) => {
@@ -11,6 +11,7 @@ const transactionsReducer = (state=states.transactionsState, action) => {
   let frequency;
   let transaction;
   let messageBoard;
+  let billId;
 
 
   const sortTransactionsByDate = (transactions) => {
@@ -53,14 +54,20 @@ const transactionsReducer = (state=states.transactionsState, action) => {
       type              = (action.payload.type)            ? action.payload.type            : state.transaction.type;
       amount            = (action.payload.amount)          ? action.payload.amount          : state.transaction.amount;
       frequency         = (action.payload.frequency)       ? action.payload.frequency       : state.transaction.frequency;
+
+      console.log('states.billsState.billId in states before assignment in POST_TRANSACTIONS is: ', states.billsState.billId)
+      billId            = states.billsState.billId;
+
       transactions      = state.transactions.slice(); //do I nee immer here to clone deep?
       
+
       transaction = {
         name,
         type,
         transactionDate,
         amount,
         frequency,
+        billId
       };
 
       if (transactionsPayload.length === 1) transactions.push(transactionsPayload[0]);
