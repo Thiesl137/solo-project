@@ -6,8 +6,9 @@ function BillsContainer(props)  {
 
     return (
       <div className='billsContainer'>
-        <p>BillsContainer</p>
-        <p>BILLS TO DISPLAY with functionality</p>
+        <h2>Bills</h2>
+        {/* <p>CHANGE FROM BILLS TO REOCCURRING</p>
+        <p>OR ADD REOCCURRING SEPARATELY</p> */}
         <Bills 
           bills={props.bills}
           handleOneClick={props.handleOneClick}

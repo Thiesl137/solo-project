@@ -15,9 +15,12 @@ const transactionsReducer = (state=states.transactionsState, action) => {
 
 
   const sortTransactionsByDate = (transactions) => {
-    return transactions.sort((a, b) => DateTime.fromISO(a.transactionDate).toMillis() - DateTime.fromISO(b.transactionDate).toMillis())
+    console.log('transactions in sort is', transactions)
+    transactions = transactions.sort((a, b) => DateTime.fromISO(a.transactionDate).toMillis() - DateTime.fromISO(b.transactionDate).toMillis())
+    console.log('transactions in sort after sort is', transactions)
+    return transactions
   }
-
+  
   
 
   function generateBalance(transactions) {
@@ -33,8 +36,6 @@ const transactionsReducer = (state=states.transactionsState, action) => {
   
 
   switch(action.type) {
-
-    //updates state with all transactions retrieved from MongoDB
     
     case types.GET_ALL_TRANSACTIONS:
 
@@ -49,8 +50,13 @@ const transactionsReducer = (state=states.transactionsState, action) => {
       
     case types.DELETE_ALL_TRANSACTIONS:
 
-      transactions = [];
-      //update transaction.transaction date (reset). It's persisting seconds.
+    //  transactions = []
+
+      transactions = state.transactions.slice()
+        .filter((transaction => transaction.type === 'bill'));
+
+      transactions = sortTransactionsByDate(transactions);  
+      transactions = generateBalance(transactions)
 
       return {
         ...state,
@@ -124,9 +130,10 @@ const transactionsReducer = (state=states.transactionsState, action) => {
       if (transactionsPayload.length > 1 ) transactionsPayload.forEach(transaction => {
         transactions.push(transaction);
       });
-
+      // console.log('BEFORE SORT ', transactions)
       transactions = sortTransactionsByDate(transactions);
       transactions = generateBalance(transactions)
+      // console.log('AFTER SORT ', transactions)
 
       return {
         ...state,

@@ -9,7 +9,7 @@ function TransactionsContainer(props) {
 
     return (
       <div className='transactionsContainer'>
-        <p>Transactions Container</p>
+        <h2>Transactions</h2>
         <DeleteButton 
           buttonName={props.buttonName}
           handleAllClick={props.handleAllClick}

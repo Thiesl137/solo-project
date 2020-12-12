@@ -1,80 +1,146 @@
 body {
   background: rgb(251, 252, 253);
+  font-family: Arial, Helvetica, sans-serif;
   
+
+  .app {
+    box-sizing: border-box;
+
+    h1 {
+      margin: auto;
+      text-align: center;
+      width: 50%;
+      font-size: 120px;
+      color: $mainBlue;
+      // border: $border dashed magenta;
+      box-sizing: border-box;
+
+    }
+  
+    .mainContainer {
+      display:flex; 
+      flex-direction:row;
+      // border: $border dashed $mainBlue;
+      box-sizing: border-box;
+
+      h2{
+        color: $mainBlue;
+      }
+
+      .inputsContainer {
+        border: $border solid $mainBlue;
+        box-sizing: border-box;
+
+        width: 30%;
+        margin: 10px;
+      
+        .inputs {
+          // border: $border dotted pink;
+          box-sizing: border-box;
+          margin: 2px;
+
+        }
+      
+        .billsContainer {
+          // border: $border solid $mainBlue;
+          box-sizing: border-box;
+
+          width: 100%;
+          margin: auto;
+    
+    
+          .bill {
+            display: flex;
+            // border: $border solid rgb(255, 180, 147);
+            box-sizing: border-box;
+
+            margin: 1px;
+            width: 100%;
+    
+            p {
+              flex-direction: row;
+              flex-wrap: nowrap;
+              justify-content: space-evenly;
+              align-content: center;
+              margin: auto;
+              width: 19%;
+              // border: $border solid rgb(251, 223, 212);
+              box-sizing: border-box;
+
+            }
+          }
+        }
+      }
+      
+      .transactionsContainer {
+        border: $border solid $mainBlue;
+        box-sizing: border-box;
+
+        width: 70%;
+        margin: 10px;
+      
+        .transactions {
+          // border: $border solid rgb(1, 255, 1);
+          box-sizing: border-box;
+
+          width: 100%;
+        
+          .transaction {
+            display: flex;
+            // border: $border solid rgb(212, 166, 255);
+            box-sizing: border-box;
+
+          
+            .date {
+              flex-direction: row;
+              flex-wrap: nowrap;
+              justify-content: space-evenly;
+              align-content: center;
+              width: 30px;
+              margin: auto;
+            }
+          
+            p {
+              flex-direction: row;
+              flex-wrap: nowrap;
+              justify-content: space-evenly;
+              align-content: center;
+              width: 15%;
+              margin: auto;
+              // border: $border solid rgb(237, 217, 255);
+            }
+
+            
+          }
+        }
+      }
+    }
+    
+  }
 }
+
 
 
 button {
   color: lightseagreen;
+  margin: 2px;
 }
 
 form {
   color: black;
 }
 
-.app {
-  border: $border dashed magenta;
+
+
+
+
+
+
+
+
+
+
+
+
   
-}
 
-.mainContainer {
-  display:flex; 
-  flex-direction:row;
-  border: $border dashed greenyellow;
-}
-
-.billsContainer {
-  border: $border solid purple;
-  width: 80%;
-  
-}
-.inputsContainer {
-  border: $border solid green;
-  width: 30%;
-  
-}
-
-.transactionsContainer {
-  border: $border solid red;
-  width: 70%;
-}
-
-.transactions {
-  border: $border solid rgb(1, 255, 1);
-  width: 50%;
-}
-
-.inputs {
-  border: $border dotted pink;
-}
-
-.transaction {
-  display: flex;
-  
-  border: $border solid rgb(212, 166, 255);
-}
-
-.transaction p {
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: space-evenly;
-  align-content: center;
-  width: 15%;
-  margin: auto;
-  border: $border solid rgb(237, 217, 255);
-}
-
-.bill {
-  display: flex;
-  border: $border solid rgb(255, 180, 147);
-}
-
-.bill p {
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: space-evenly;
-  align-content: center;
-  margin: auto;
-  width: 15%;
-  border: $border solid rgb(251, 223, 212);
-}

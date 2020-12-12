@@ -5,7 +5,7 @@ const transactionsController = {};
 
 transactionsController.deleteAllTransactions = (req, res, next) => {
 
-  Transactions.remove({})
+  Transactions.remove({ $or: [ { type: 'expense' } , { type: 'income'  } ] })
     // .exec()
     .then(transactions => {
       res.locals.transactions = transactions;
@@ -106,6 +106,7 @@ transactionsController.postTransactions = (req, res, next) => {
   
   const { frequency, type, name, transactionDate, amount, billId } = req.body.transaction;
 
+
   const reoccurringTransaction = [];
   
 
@@ -146,6 +147,7 @@ transactionsController.postTransactions = (req, res, next) => {
     billId
   }
 
+
   if (frequency === 'one-time') reoccurringTransaction.push(oneTimeTransaction);
 
   else {
@@ -156,6 +158,7 @@ transactionsController.postTransactions = (req, res, next) => {
       })
     }
   }
+
 
   Transactions.insertMany(reoccurringTransaction)
     .then(transactions => {

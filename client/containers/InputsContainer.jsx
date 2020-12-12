@@ -53,7 +53,7 @@ class InputsContainer extends Component {
           handleChange={this.props.handleChange}
           transaction={this.props.transaction}
         />
-
+        <hr />
         <BillsContainer 
           bills={this.props.bills}
           handleOneClick={this.props.handleOneClick}

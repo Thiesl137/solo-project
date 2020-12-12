@@ -27,7 +27,8 @@ function Bills(props) {
 
   return (
     <div className='bills'>
-      <p>BILLS HEADER HERE</p>
+      
+      {/* <p>BILLS HEADER HERE</p> */}
         {/* <bills Header /> */}
       {billsElems}
     </div>

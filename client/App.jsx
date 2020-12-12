@@ -10,8 +10,7 @@ class App extends Component {
   render() {
     return (
       <div className='app'>
-        <span>APP: </span>
-        
+        <h1>$copes </h1>
         <MainContainer />
       </div>
     );

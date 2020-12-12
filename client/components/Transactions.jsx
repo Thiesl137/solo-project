@@ -27,7 +27,17 @@ function Transactions(props) {
 
   return (
     <div className='transactions'>
-      <p>TRANSACTIONS HEADER HERE</p>
+      <div className='transaction'>
+        <p className='date'>MON</p>
+        <p className='date'>DAY</p>
+        <p>NAME</p>
+        <p>TYPE</p>
+        <p>FREQUENCY</p>
+        <p>AMOUNT</p>
+        <p>BALANCE</p>
+        <button onClick={() => console.log('hello')}>DELETE</button>
+      </div>
+      {/* <p>TRANSACTIONS HEADER HERE</p> */}
         {/* <TransactionsHeader /> */}
       {transElems}
     </div>

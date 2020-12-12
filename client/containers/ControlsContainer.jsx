@@ -10,7 +10,7 @@ class ControlsContainer extends Component {
   render() {
     return (
       <div className='controlsContainer'>
-        <p>ControlsContainer</p>
+        <h2>Controls</h2>
         <Inputs 
           postToBillThenToTrans={this.props.postToBillThenToTrans}
           handleChange={this.props.handleChange}

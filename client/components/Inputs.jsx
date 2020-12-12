@@ -11,7 +11,6 @@ const Inputs = ({
   
   return (
     <form className='inputs'>
-      <p>Inputs</p>
       <div>
         <label htmlFor="name">Name: </label>
         <input type="text" id="Transactions Input" name="name" onChange={handleChange}/>
@@ -49,6 +48,7 @@ const Inputs = ({
       <button type="button" value="submit" onClick={(event) => {
         postToBillThenToTrans(event, transaction); 
       }}>Submit</button>
+      
     </form>
   );
 }

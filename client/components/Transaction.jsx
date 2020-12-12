@@ -16,16 +16,18 @@ const Transaction = ({
     balance} = info;
   
 
-  let transactionDateToString = DateTime.fromISO(transactionDate.substr(0, 10)).toLocaleString();
+  let mon = DateTime.fromISO(transactionDate.substr(0, 10)).toLocaleString({ month: 'short' });
+  let dayNum = DateTime.fromISO(transactionDate.substr(0, 10)).toLocaleString({ day: '2-digit' });
   
   return (
     <div className='transaction'>
-      <p>{transactionDateToString}</p>
+      <p className='date'>{mon}</p>
+      <p className='date'>{dayNum}</p>
       <p>{name}</p>
       <p>{type}</p>
       <p>{frequency}</p>
-      <p>{'$' + amount}</p>
-      <p>{balance}</p>
+      <p>{'$ ' + amount}</p>
+      <p>{'$ ' + balance}</p>
       <button onClick={() => handleOneClick(_id)}>DELETE</button>
     </div>
   );
