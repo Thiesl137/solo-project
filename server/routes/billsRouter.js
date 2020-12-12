@@ -17,8 +17,8 @@ router.get('/getAll', billsController.getAllBills, (req, res) => {
 //CLEAR ALL BILLS FROM DATABASE
 router.delete('/deleteAll', billsController.deleteAllBills, (req, res) => {  
   return res.status(200).json({
-    'deletedCount': res.locals.bills.deletedCount,
-    'messageBoard': `Erased All Bills!!! Deleted ${res.locals.bills.deletedCount} transactions.`
+    'deletedCount': res.locals.deleteResponse.deletedCount,
+    'messageBoard': `Erased All Bills!!! Deleted ${res.locals.deleteResponse.deletedCount} transactions.`
   });
 });
 

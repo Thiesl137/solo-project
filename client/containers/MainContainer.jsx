@@ -21,11 +21,15 @@ const mapDispatchToProps = dispatch => ({
   },
   
   deleteAllTransactions() {
-    dispatch(asyncActions.deleteAllTransactions(dispatch))
+    dispatch(asyncActions.deleteAllTransactions())
   },
 
   deleteAllBills() {
-    dispatch(asyncActions.deleteAllBills(dispatch))
+    dispatch(asyncActions.deleteAllBills())
+      .then((billsDeletedFromDb => {
+        console.log('billsDeletedFromDb are: ', billsDeletedFromDb)
+        dispatch(asyncActions.deleteAllBillsFromTransactions()) //create a fineManyandDelete with bills from deleted
+      }))
   },
 });
 

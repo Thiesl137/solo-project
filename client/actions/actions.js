@@ -15,6 +15,11 @@ export const deleteAllTransactions = (numDeleted) => ({
   payload: numDeleted
 });
 
+export const deleteAllBillsFromTransactions = (numDeleted) => ({
+  type: types.DELETE_ALL_BILLS_FROM_TRANSACTIONS,
+  payload: numDeleted
+});
+
 export const postTransactions = (transactions) => ({
   type: types.POST_TRANSACTIONS,
   payload: transactions

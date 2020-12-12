@@ -25,4 +25,11 @@ router.delete('/deleteAll', transactionsController.deleteAllTransactions, (req, 
   });
 });
 
+router.delete('/deleteAllBills', transactionsController.deleteAllBillsFromTransactions, (req, res) => {  
+  return res.status(200).json({
+    'deletedCount': res.locals.transactions.deletedCount,
+    'messageBoard': `Erased All Transactions!!! Deleted ${res.locals.transactions.deletedCount} transactions.`
+  });
+});
+
 module.exports = router;

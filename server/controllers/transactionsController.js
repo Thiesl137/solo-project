@@ -5,12 +5,32 @@ const { DateTime } = require('luxon')
 const transactionsController = {};
 
 transactionsController.deleteAllTransactions = (req, res, next) => {
-  // write code here
 
   Transactions.remove({})
     // .exec()
     .then(transactions => {
       res.locals.transactions = transactions;
+      return next();
+    })
+    .catch(err => {
+      return next({
+        log: `transactionsController.eraseAllTransactions: ERROR: ${err}`,
+        message: {
+          err: 'Error occurred in transactionsController.eraseAllTransactions. Check server logs for more details...',
+        },
+      });
+    });
+}
+
+transactionsController.deleteAllBillsFromTransactions = (req, res, next) => {
+
+  Transactions.remove({type: 'bill'})
+
+    .then(transactions => {
+      console.log('transactions.deletedCount in Transactions.remove is: ', transactions.deletedCount);
+      
+      res.locals.transactions = transactions;
+
       return next();
     })
     .catch(err => {

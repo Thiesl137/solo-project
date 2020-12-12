@@ -53,7 +53,7 @@ export function postBill(transaction) {
         return bill; 
       })
       .catch(err => {
-        console.log('Error in loadFromMongo in asyncActions.js: postBill: ERROR: ', err)
+        console.log('Error in fetch in asyncActions.js: postBill: ERROR: ', err)
         return null;
       });
   };
@@ -68,7 +68,7 @@ export function getAllTransactions() {
           dispatch(actions.getAllTransactions(transactions))
         })
         .catch(err => {
-          console.log('Error in loadFromMongo in mainContainer.js: getAllTransactions: ERROR: ', err)
+          console.log('Error in fetch in asyncActions.js: getAllTransactions: ERROR: ', err)
           return undefined;
         })
   }
@@ -85,10 +85,26 @@ export function deleteAllTransactions() {
         dispatch(actions.updateMessageBoard(deleted))
       })
       .catch(err => {
-        console.log('Error in loadFromMongo in mainContainer.js: deletellTransactions: ERROR: ', err)
+        console.log('Error in fetch in asyncActions.js: deleteAllTransactions: ERROR: ', err)
         return undefined;
       })
+  }
+}
 
+export function deleteAllBillsFromTransactions() {
+  return function (dispatch)  {
+    return fetch('/api/trans/deleteAllBills', {
+      method: 'DELETE'
+    })
+      .then(res => res.json())
+      .then((deleted) => {
+        dispatch(actions.deleteAllBillsFromTransactions(deleted))
+        dispatch(actions.updateMessageBoard(deleted))
+      })
+      .catch(err => {
+        console.log('Error in fetch in asyncActions.js: deleteAllBillsFromTransactions: ERROR: ', err)
+        return undefined;
+      })
   }
 }
 
@@ -100,14 +116,18 @@ export function getAllBills() {
         dispatch(actions.getAllBills(bills))
       })
       .catch(err => {
-        console.log('Error in loadFromMongo in mainContainer.js: getAllBills: ERROR: ', err)
+        console.log('Error in fetch in asyncActions.js: getAllBills: ERROR: ', err)
         return undefined;
       })
   }
 }
 
 export function deleteAllBills() {
-  return function (dispatch)  {
+  return function (dispatch, getState)  {
+
+    const billsInState = getState().billsDB.bills
+    console.log('billsInState in fetch in asyncActions.js: ', billsInState)
+
     return fetch('/api/bills/deleteAll', {
       method: 'DELETE',
     })
@@ -115,10 +135,10 @@ export function deleteAllBills() {
       .then((deleted) => {
         
         dispatch(actions.deleteAllBills(deleted))
-
+        return billsInState
       })
       .catch(err => {
-        console.log('Error in loadFromMongo in mainContainer.js: deletellTransactions: ERROR: ', err)
+        console.log('Error in fetch in asyncActions.js: deleteAllBills: ERROR: ', err)
         return undefined;
       })
   }

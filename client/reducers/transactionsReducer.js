@@ -36,7 +36,18 @@ const transactionsReducer = (state=states.transactionsState, action) => {
       transactions = [];
       //update transaction.transaction date (reset). It's persisting seconds.
 
-      messageBoard = action.payload.messageBoard;
+      return {
+        ...state,
+        transactions,
+    
+      }
+
+    case types.DELETE_ALL_BILLS_FROM_TRANSACTIONS:
+
+      transactions = state.transactions.slice();
+      //update transaction.transaction date (reset). It's persisting seconds.
+      transactions = transactions.filter(transaction => !(transaction.type === 'bill'))
+      console.log('transactions in DELETE_ALL_BILLS_FROM_TRANSACTIONS is: ', transactions)
       return {
         ...state,
         transactions,
