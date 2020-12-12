@@ -25,7 +25,7 @@ form {
 
 .billsContainer {
   border: $border solid purple;
-  width: 100%;
+  width: 80%;
   
 }
 .inputsContainer {
@@ -41,7 +41,7 @@ form {
 
 .transactions {
   border: $border solid rgb(1, 255, 1);
-  width: 100%;
+  width: 50%;
 }
 
 .inputs {
@@ -50,14 +50,31 @@ form {
 
 .transaction {
   display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-  align-content: center;
-  border: $border dotted yellow;
+  
+  border: $border solid rgb(212, 166, 255);
 }
 
 .transaction p {
-  width: 20%;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+  align-content: center;
+  width: 15%;
   margin: auto;
+  border: $border solid rgb(237, 217, 255);
+}
+
+.bill {
+  display: flex;
+  border: $border solid rgb(255, 180, 147);
+}
+
+.bill p {
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+  align-content: center;
+  margin: auto;
+  width: 15%;
+  border: $border solid rgb(251, 223, 212);
 }

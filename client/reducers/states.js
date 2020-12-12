@@ -6,7 +6,8 @@ export const transactionsState = {
       transactionDate: (new Date()).toISOString(),
       amount: 0,
       frequency: 'one-time',
-      billId: 0
+      billId: 0,
+      balance: 0
     }
   };
 

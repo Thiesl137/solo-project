@@ -26,7 +26,6 @@ transactionsController.deleteAllBillsFromTransactions = (req, res, next) => {
   Transactions.remove({type: 'bill'})
 
     .then(transactions => {
-      console.log('transactions.deletedCount in Transactions.remove is: ', transactions.deletedCount);
       
       res.locals.transactions = transactions;
 
@@ -45,7 +44,7 @@ transactionsController.deleteAllBillsFromTransactions = (req, res, next) => {
 transactionsController.deleteBillReoccurancesFromTransactions = (req, res, next) => {
 
   
-  Transactions.remove({billId: req.body._id})
+  Transactions.deleteMany({billId: req.body._id})
 
     .then(transactions => {
       
@@ -68,7 +67,6 @@ transactionsController.deleteOneTransaction = (req, res, next) => {
   Transactions.findOneAndDelete({_id: req.body._id})
 
     .then(transaction => {
-      console.log('transactions in Transactions.remove is: ', transaction);
       
       res.locals.transaction = transaction;
 
@@ -158,6 +156,7 @@ transactionsController.postTransactions = (req, res, next) => {
       })
     }
   }
+
   Transactions.insertMany(reoccurringTransaction)
     .then(transactions => {
       res.locals.transactions = transactions;

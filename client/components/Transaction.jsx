@@ -12,18 +12,20 @@ const Transaction = ({
     name,
     type,
     __v,
-    _id} = info;
+    _id,
+    balance} = info;
   
 
   let transactionDateToString = DateTime.fromISO(transactionDate.substr(0, 10)).toLocaleString();
   
   return (
     <div className='transaction'>
-      <p>{'transactionDate: ' + transactionDateToString}</p>
-      <p>{'name: ' + name}</p>
-      <p>{'type: ' + type}</p>
-      <p>{'frequency: ' + frequency}</p>
-      <p>{'amount: ' + amount}</p>
+      <p>{transactionDateToString}</p>
+      <p>{name}</p>
+      <p>{type}</p>
+      <p>{frequency}</p>
+      <p>{'$' + amount}</p>
+      <p>{balance}</p>
       <button onClick={() => handleOneClick(_id)}>DELETE</button>
     </div>
   );

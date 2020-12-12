@@ -11,11 +11,26 @@ const transactionsReducer = (state=states.transactionsState, action) => {
   let frequency;
   let transaction;
   let billId;
+  let balance;
 
 
   const sortTransactionsByDate = (transactions) => {
     return transactions.sort((a, b) => DateTime.fromISO(a.transactionDate).toMillis() - DateTime.fromISO(b.transactionDate).toMillis())
   }
+
+  
+
+  function generateBalance(transactions) {
+    if(transactions.length) {
+      transactions[0].balance = transactions[0].amount
+      for (let i = 1; i < transactions.length; i++){
+        transactions[i].balance = Math.round((transactions[i-1].balance + transactions[i].amount) * 100) / 100
+      }
+    };
+    return transactions;
+  }
+
+  
 
   switch(action.type) {
 
@@ -24,6 +39,8 @@ const transactionsReducer = (state=states.transactionsState, action) => {
     case types.GET_ALL_TRANSACTIONS:
 
       transactions = sortTransactionsByDate(action.payload);
+      transactions = generateBalance(transactions)
+
 
       return {
         ...state,
@@ -45,7 +62,8 @@ const transactionsReducer = (state=states.transactionsState, action) => {
 
       transactions = state.transactions.slice()
         .filter(transaction => !(transaction._id === action.payload))
-
+      transactions = generateBalance(transactions)
+      
       return {
         ...state,
         transactions,
@@ -56,6 +74,8 @@ const transactionsReducer = (state=states.transactionsState, action) => {
 
       transactions = state.transactions.slice()
         .filter(transaction => !(transaction.type === 'bill'))
+      
+      transactions = generateBalance(transactions)
 
       return {
         ...state,
@@ -67,6 +87,8 @@ const transactionsReducer = (state=states.transactionsState, action) => {
 
       transactions = state.transactions.slice()
         .filter(transaction => !(transaction.billId === action.payload))
+
+      transactions = generateBalance(transactions)
 
       return {
         ...state,
@@ -84,6 +106,7 @@ const transactionsReducer = (state=states.transactionsState, action) => {
       type              = (action.payload.type)            ? action.payload.type            : state.transaction.type;
       amount            = (action.payload.amount)          ? action.payload.amount          : state.transaction.amount;
       frequency         = (action.payload.frequency)       ? action.payload.frequency       : state.transaction.frequency;
+      balance           = (action.payload.balance)         ? action.payload.balance         : state.transaction.balance;
       billId            = states.billsState.billId;
       transactions      = state.transactions.slice(); //do I nee immer here to clone deep?
       
@@ -93,7 +116,8 @@ const transactionsReducer = (state=states.transactionsState, action) => {
         transactionDate,
         amount,
         frequency,
-        billId
+        billId,
+        balance
       };
 
       if (transactionsPayload.length === 1) transactions.push(transactionsPayload[0]);
@@ -102,7 +126,7 @@ const transactionsReducer = (state=states.transactionsState, action) => {
       });
 
       transactions = sortTransactionsByDate(transactions);
-      
+      transactions = generateBalance(transactions)
 
       return {
         ...state,
