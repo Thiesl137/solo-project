@@ -12,11 +12,12 @@ function TransactionsContainer(props) {
         <p>Transactions Container</p>
         <DeleteButton 
           buttonName={props.buttonName}
-          handleClick={props.handleClick}
+          handleAllClick={props.handleAllClick}
         />
 
         <Transactions 
           transactions={props.transactions}
+          handleOneClick={props.handleOneClick}
         />
 
       </div>

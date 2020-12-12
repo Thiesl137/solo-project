@@ -10,7 +10,6 @@ const transactionsReducer = (state=states.transactionsState, action) => {
   let amount;
   let frequency;
   let transaction;
-  let messageBoard;
   let billId;
 
 
@@ -42,12 +41,33 @@ const transactionsReducer = (state=states.transactionsState, action) => {
     
       }
 
+    case types.DELETE_ONE_TRANSACTION:
+
+      transactions = state.transactions.slice()
+        .filter(transaction => !(transaction._id === action.payload))
+
+      return {
+        ...state,
+        transactions,
+    
+      }
+
     case types.DELETE_ALL_BILLS_FROM_TRANSACTIONS:
 
-      transactions = state.transactions.slice();
-      //update transaction.transaction date (reset). It's persisting seconds.
-      transactions = transactions.filter(transaction => !(transaction.type === 'bill'))
-      console.log('transactions in DELETE_ALL_BILLS_FROM_TRANSACTIONS is: ', transactions)
+      transactions = state.transactions.slice()
+        .filter(transaction => !(transaction.type === 'bill'))
+
+      return {
+        ...state,
+        transactions,
+    
+      }
+
+    case types.DELETE_BILL_REOCCURANCES:
+
+      transactions = state.transactions.slice()
+        .filter(transaction => !(transaction.billId === action.payload))
+
       return {
         ...state,
         transactions,
@@ -64,12 +84,9 @@ const transactionsReducer = (state=states.transactionsState, action) => {
       type              = (action.payload.type)            ? action.payload.type            : state.transaction.type;
       amount            = (action.payload.amount)          ? action.payload.amount          : state.transaction.amount;
       frequency         = (action.payload.frequency)       ? action.payload.frequency       : state.transaction.frequency;
-
       billId            = states.billsState.billId;
-
       transactions      = state.transactions.slice(); //do I nee immer here to clone deep?
       
-
       transaction = {
         name,
         type,

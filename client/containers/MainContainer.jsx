@@ -4,8 +4,6 @@ import * as asyncActions from '../actions/asyncActions';
 
 import InputsContainer from './InputsContainer';
 import TransactionsContainer from './TransactionsContainer'
-
-
 import MessageBoard from '../components/MessageBoard';
 
 const mapStateToProps = state => ({
@@ -26,11 +24,21 @@ const mapDispatchToProps = dispatch => ({
 
   deleteAllBills() {
     dispatch(asyncActions.deleteAllBills())
-      .then((billsDeletedFromDb => {
-        console.log('billsDeletedFromDb are: ', billsDeletedFromDb)
-        dispatch(asyncActions.deleteAllBillsFromTransactions()) //create a fineManyandDelete with bills from deleted
-      }))
+      .then(() => {
+        dispatch(asyncActions.deleteAllBillsFromTransactions())
+      })
   },
+
+  deleteOneTransaction(_id) {
+    dispatch(asyncActions.deleteOneTransaction(_id))
+  },
+
+  deleteOneBill(_id) {
+    dispatch(asyncActions.deleteOneBill(_id))
+      .then(() => {
+        dispatch(asyncActions.deleteBillReoccurancesFromTransactions(_id))
+      })
+  }
 });
 
 class MainContainer extends Component {
@@ -46,14 +54,18 @@ class MainContainer extends Component {
     return (
       <div>
         <MessageBoard message={this.props.messageBoard}/>
+
         <div className='mainContainer'>
+          
           <InputsContainer 
             buttonName="BILLS" 
-            handleClick={this.props.deleteAllBills}
+            handleAllClick={this.props.deleteAllBills}
+            handleOneClick={this.props.deleteOneBill}
           />
           <TransactionsContainer
             buttonName="TRANSACTIONS" 
-            handleClick={this.props.deleteAllTransactions}
+            handleAllClick={this.props.deleteAllTransactions}
+            handleOneClick={this.props.deleteOneTransaction}
             transactions={this.props.transactions}
           />
          

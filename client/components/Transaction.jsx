@@ -2,9 +2,10 @@ import React from 'react';
 const { DateTime } = require('luxon');
 
 const Transaction = ({
-  info
+  info,
+  handleOneClick
 }) => {
-  
+
   const {amount,
     transactionDate,
     frequency,
@@ -13,8 +14,9 @@ const Transaction = ({
     __v,
     _id} = info;
   
-  let transactionDateToString = DateTime.fromISO(transactionDate).toLocaleString();
-    
+
+  let transactionDateToString = DateTime.fromISO(transactionDate.substr(0, 10)).toLocaleString();
+  
   return (
     <div className='transaction'>
       <p>{'transactionDate: ' + transactionDateToString}</p>
@@ -22,7 +24,7 @@ const Transaction = ({
       <p>{'type: ' + type}</p>
       <p>{'frequency: ' + frequency}</p>
       <p>{'amount: ' + amount}</p>
-      <button>DELETE</button>
+      <button onClick={() => handleOneClick(_id)}>DELETE</button>
     </div>
   );
 }

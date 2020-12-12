@@ -1,9 +1,6 @@
 const express = require('express');
-
 const transactionsController = require('../controllers/transactionsController');
-
 const router = express.Router();
-
 
 //POST INCOME TO DATABASE
 router.post('/post', transactionsController.postTransactions, (req, res) => {
@@ -25,10 +22,22 @@ router.delete('/deleteAll', transactionsController.deleteAllTransactions, (req, 
   });
 });
 
+router.delete('/deleteOne', transactionsController.deleteOneTransaction, (req, res) => {  
+  return res.status(200).json({
+    'transaction': res.locals.transaction,
+  });
+});
+
 router.delete('/deleteAllBills', transactionsController.deleteAllBillsFromTransactions, (req, res) => {  
   return res.status(200).json({
     'deletedCount': res.locals.transactions.deletedCount,
-    'messageBoard': `Erased All Transactions!!! Deleted ${res.locals.transactions.deletedCount} transactions.`
+    'messageBoard': `Erased All Bills!!! Deleted ${res.locals.transactions.deletedCount} Bills.`
+  });
+});
+
+router.delete('/deleteBillReoccurances', transactionsController.deleteBillReoccurancesFromTransactions, (req, res) => {  
+  return res.status(200).json({
+    'deletedCount': res.locals.transactions.deletedCount,
   });
 });
 

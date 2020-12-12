@@ -24,14 +24,19 @@ const mapDispatchToProps = dispatch => ({
     return dispatch(actions.postTransactions({[name]:value})) 
   },
 
-  postToBillThenToTrans(event, transaction) {
+  postToBillThenToTrans(event, transaction) { //dont like this. should create a dispatch router
     event.preventDefault();
 
-    dispatch(asyncActions.postBill(transaction))
-      .then((bill) => {
-        dispatch(asyncActions.postTransaction(bill))
-      })
+    if (transaction.type != 'bill') {
+      dispatch(asyncActions.postTransaction(transaction))
+    } else {
+      dispatch(asyncActions.postBill(transaction))
+        .then((bill) => {
+          dispatch(asyncActions.postTransaction(bill))
+        })
+    }
   },
+
 });
 
 class InputsContainer extends Component {
@@ -51,11 +56,12 @@ class InputsContainer extends Component {
 
         <BillsContainer 
           bills={this.props.bills}
+          handleOneClick={this.props.handleOneClick}
         /> 
 
         <DeleteButton 
           buttonName={this.props.buttonName}
-          handleClick={this.props.handleClick}
+          handleAllClick={this.props.handleAllClick}
           billId={this.props.billId}
         />
 

@@ -20,6 +20,7 @@ function Bills(props) {
       <Bill
         key={i}
         info={bills}
+        handleOneClick={props.handleOneClick}
       />
     );
   });

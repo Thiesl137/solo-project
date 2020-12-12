@@ -20,6 +20,7 @@ function Transactions(props) {
       <Transaction
         key={i}
         info={trans}
+        handleOneClick={props.handleOneClick}
       />
     );
   });

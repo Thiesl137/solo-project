@@ -44,3 +44,18 @@ export const deleteAllBills = (numDeleted) => ({
   type: types.DELETE_ALL_BILLS,
   payload: numDeleted,
 });
+
+export const deleteOneTransaction = (_id) => ({
+  type: types.DELETE_ONE_TRANSACTION,
+  payload: _id,
+});
+
+export const deleteOneBill = (_id) => ({
+  type: types.DELETE_ONE_BILL,
+  payload: _id,
+});
+
+export const deleteBillReoccurancesFromTransactions = (_id) => ({
+  type: types.DELETE_BILL_REOCCURANCES,
+  payload: _id,
+});

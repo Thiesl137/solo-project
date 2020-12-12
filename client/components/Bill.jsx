@@ -2,7 +2,8 @@ import React from 'react';
 const { DateTime } = require('luxon');
 
 const Bill = ({
-  info
+  info,
+  handleOneClick
 }) => {
   
   const {amount,
@@ -22,7 +23,7 @@ const Bill = ({
       <p>{'type: ' + type}</p>
       <p>{'frequency: ' + frequency}</p>
       <p>{'amount: ' + amount}</p>
-      <button>DELETE</button>
+      <button onClick={() => handleOneClick(_id)}>DELETE</button>
     </div>
   );
 }

@@ -1,7 +1,5 @@
 const express = require('express');
 const billsController = require('../controllers/billsController');
-
-
 const router = express.Router();
 
 //POST BILLS TO DATABASE
@@ -18,7 +16,13 @@ router.get('/getAll', billsController.getAllBills, (req, res) => {
 router.delete('/deleteAll', billsController.deleteAllBills, (req, res) => {  
   return res.status(200).json({
     'deletedCount': res.locals.deleteResponse.deletedCount,
-    'messageBoard': `Erased All Bills!!! Deleted ${res.locals.deleteResponse.deletedCount} transactions.`
+    'messageBoard': `Erased All Bills!!! Deleted ${res.locals.deleteResponse.deletedCount} Bills.`
+  });
+});
+
+router.delete('/deleteOne', billsController.deleteOneBill, (req, res) => {  
+  return res.status(200).json({
+    'bill': res.locals.bill,
   });
 });
 

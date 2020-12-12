@@ -1,13 +1,9 @@
 const { Bills } = require('../models/billsModel');
-const { Transactions } = require('../models/transactionsModel');
-const { DateTime } = require('luxon');
-const { Mongoose } = require('mongoose');
-
 
 const billsController = {};
 
 billsController.postBill = (req, res, next) => {
-
+  
   Bills.create(req.body)
     .then(bill => {
       res.locals.bill = bill;
@@ -15,27 +11,27 @@ billsController.postBill = (req, res, next) => {
     })
     .catch(err => {
       return next({
-        log: `billsController.createTest: ERROR: ${err}`,
+        log: `billsController.postBill: ERROR: ${err}`,
         message: {
-          err: 'Error occurred in billsController.createTest. Check server logs for more details...',
+          err: 'Error occurred in billsController.postBill. Check server logs for more details...',
         },
       });
     });
 }
 
-billsController.deleteBill = (req, res, next) => {
+billsController.deleteOneBill = (req, res, next) => {
 
-  Bills.findOneAndDelete(req.body)
-    .exec()
+  Bills.findOneAndDelete({_id: req.body._id})
+    // .exec()
     .then(bill => {
       res.locals.bill = bill;
       return next();
     })
     .catch(err => {
       return next({
-        log: `billsController.createTest: ERROR: ${err}`,
+        log: `billsController.deleteOneBill: ERROR: ${err}`,
         message: {
-          err: 'Error occurred in billsController.createTest. Check server logs for more details...',
+          err: 'Error occurred in billsController.deleteOneBill. Check server logs for more details...',
         },
       });
     });

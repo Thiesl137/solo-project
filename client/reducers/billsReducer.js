@@ -21,7 +21,7 @@ const billsReducer = (state=states.billsState, action) => {
       return {
         ...state,
         bills
-      }
+      };
 
     case types.POST_BILL:
 
@@ -40,6 +40,16 @@ const billsReducer = (state=states.billsState, action) => {
     case types.DELETE_ALL_BILLS:
 
       bills = [];
+
+      return {
+        ...state,
+        bills,
+      };
+   
+    case types.DELETE_ONE_BILL:
+
+      bills = state.bills.slice()
+        .filter((bill) => !(bill._id === action.payload))
 
       return {
         ...state,

@@ -13,8 +13,6 @@ const PORT = 3000;
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
-
 console.log('NODE_ENV in model = ', process.env.NODE_ENV)
 
 const MONGO_URI = 
@@ -42,7 +40,6 @@ mongoose.connect(MONGO_URI, {
 app.use('/api/trans', transactionsRouter);
 //Route to bills db
 app.use('/api/bills', billsRouter);
-
 
 //PRODUCTION SERVICE
 if (process.env.NODE_ENV === 'production') {

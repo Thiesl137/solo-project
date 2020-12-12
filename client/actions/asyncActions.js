@@ -37,7 +37,7 @@ export function postTransaction(transaction) {
 export function postBill(transaction) {
 
   return function(dispatch) {
-    
+
     return fetch('/api/bills/post',
       {
         method: "POST",
@@ -108,6 +108,28 @@ export function deleteAllBillsFromTransactions() {
   }
 }
 
+export function deleteBillReoccurancesFromTransactions(_id) {
+  return function (dispatch)  {
+    return fetch('/api/trans/deleteBillReoccurances', {
+      method: 'DELETE',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({_id})
+    })
+      .then(res => res.json())
+      .then((deleted) => {
+        dispatch(actions.deleteBillReoccurancesFromTransactions(_id))
+        // dispatch(actions.updateMessageBoard(deleted))
+      })
+      .catch(err => {
+        console.log('Error in fetch in asyncActions.js: deleteAllBillsFromTransactions: ERROR: ', err)
+        return undefined;
+      })
+  }
+}
+
 export function getAllBills() {
   return function (dispatch)  {
     return fetch('/api/bills/getAll')
@@ -126,7 +148,6 @@ export function deleteAllBills() {
   return function (dispatch, getState)  {
 
     const billsInState = getState().billsDB.bills
-    console.log('billsInState in fetch in asyncActions.js: ', billsInState)
 
     return fetch('/api/bills/deleteAll', {
       method: 'DELETE',
@@ -142,4 +163,55 @@ export function deleteAllBills() {
         return undefined;
       })
   }
+}
+
+export function deleteOneTransaction(_id) {
+
+  return function(dispatch) {
+
+    return fetch('/api/trans/deleteOne',
+      {
+        method: "DELETE",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({_id})
+      })
+      .then(res => res.json())
+      .then((deleteDbResponse) => {
+        dispatch(actions.deleteOneTransaction(_id))
+        return _id  
+      })
+      .catch(err => {
+        console.log('Error in fetch in asyncActions.js: deleteOneTransaction: ERROR: ', err)
+        return null
+      });
+  };
+}
+
+export function deleteOneBill(_id) {
+
+  return function(dispatch) {
+
+    return fetch('/api/bills/deleteOne',
+      {
+        method: "DELETE",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({_id})
+      })
+      .then(res => res.json())
+      .then((deleteDbResponse) => {
+
+        dispatch(actions.deleteOneBill(_id))
+        return _id  
+      })
+      .catch(err => {
+        console.log('Error in fetch in asyncActions.js: deleteOneBill: ERROR: ', err)
+        return null
+      });
+  };
 }

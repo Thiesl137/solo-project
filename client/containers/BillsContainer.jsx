@@ -10,6 +10,7 @@ function BillsContainer(props)  {
         <p>BILLS TO DISPLAY with functionality</p>
         <Bills 
           bills={props.bills}
+          handleOneClick={props.handleOneClick}
         />
       </div>
     );
