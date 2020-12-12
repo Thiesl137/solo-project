@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../actions/actions';
+import * as asyncActions from '../actions/asyncActions';
 
 import InputsContainer from './InputsContainer';
 import TransactionsContainer from './TransactionsContainer'
@@ -14,59 +14,18 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getAllTransactions() {
-    fetch('/api/trans/getAllTransactions')
-      .then(res => res.json())
-      .then((transactions) => {
-        return dispatch(actions.getAllTransactions(transactions))
-      })
-      .catch(err => {
-        console.log('Error in loadFromMongo in mainContainer.js: getAllTransactions: ERROR: ', err)
-        return undefined;
-      })
-  },
 
-  deleteAllTransactions() {
-    fetch('/api/trans/clear', {
-      method: 'DELETE'
-    })
-      .then(res => res.json())
-      .then((deleted) => {
-        dispatch(actions.deleteAllTransactions(deleted))
-        dispatch(actions.updateMessageBoard(deleted))
-        return
-      })
-      .catch(err => {
-        console.log('Error in loadFromMongo in mainContainer.js: deletellTransactions: ERROR: ', err)
-        return undefined;
-      })
-  },
-
-  getAllBills() {
-    fetch('/api/bills/getAllBills')
-      .then(res => res.json())
-      .then((bills) => {
-        return dispatch(actions.getAllBills(bills))
-      })
-      .catch(err => {
-        console.log('Error in loadFromMongo in mainContainer.js: getAllBills: ERROR: ', err)
-        return undefined;
-      })
+  getAllTransactionsAndBills() {
+    dispatch(asyncActions.getAllTransactions())
+    dispatch(asyncActions.getAllBills())
   },
   
+  deleteAllTransactions() {
+    dispatch(asyncActions.deleteAllTransactions(dispatch))
+  },
+
   deleteAllBills() {
-    fetch('/api/bills/clear', {
-      method: 'DELETE',
-    })
-      .then(res => res.json())
-      .then((deleted) => {
-        dispatch(actions.deleteAllBills(deleted))
-        return
-      })
-      .catch(err => {
-        console.log('Error in loadFromMongo in mainContainer.js: deletellTransactions: ERROR: ', err)
-        return undefined;
-      })
+    dispatch(asyncActions.deleteAllBills(dispatch))
   },
 });
 
@@ -76,8 +35,7 @@ class MainContainer extends Component {
   }
 
   componentDidMount() {
-    this.props.getAllTransactions();
-    this.props.getAllBills();
+    this.props.getAllTransactionsAndBills();
   }
 
   render() {

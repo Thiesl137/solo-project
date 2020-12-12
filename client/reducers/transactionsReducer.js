@@ -45,7 +45,6 @@ const transactionsReducer = (state=states.transactionsState, action) => {
 
     //Updates state with current income transaction to post to MondoDB
     case types.POST_TRANSACTIONS:
-      console.log('action.payload in reducer, POST_TRANSACTIONS is: ', action.payload)
       const transactionsPayload = (action.payload.transactions) ? action.payload.transactions: [];
       
       //needed for forms not resetting to a defaultValue
@@ -55,7 +54,6 @@ const transactionsReducer = (state=states.transactionsState, action) => {
       amount            = (action.payload.amount)          ? action.payload.amount          : state.transaction.amount;
       frequency         = (action.payload.frequency)       ? action.payload.frequency       : state.transaction.frequency;
 
-      console.log('states.billsState.billId in states before assignment in POST_TRANSACTIONS is: ', states.billsState.billId)
       billId            = states.billsState.billId;
 
       transactions      = state.transactions.slice(); //do I nee immer here to clone deep?

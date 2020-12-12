@@ -41,9 +41,8 @@ billsController.deleteBill = (req, res, next) => {
     });
 }
 
-billsController.eraseAllBills = (req, res, next) => {
-  // write code here
-
+billsController.deleteAllBills = (req, res, next) => {
+  console.log("req.body in billsController.deleteAllBills is: ", req.body)
   Bills.remove({})
     // .exec()
     .then(bills => {

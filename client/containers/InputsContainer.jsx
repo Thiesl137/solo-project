@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import * as actions from '../actions/actions';
+import * as asyncActions from '../actions/asyncActions'
 
 import ControlsContainer from './ControlsContainer';
 import BillsContainer from './BillsContainer'
@@ -10,7 +11,7 @@ import DeleteButton from '../components/DeleteButton'
 const mapStateToProps = state => ({
   transaction: state.transactionsDB.transaction,
   bills: state.billsDB.bills,
-  billId: state.billsDB.billId
+  billId: state.billsDB.billId,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -23,53 +24,15 @@ const mapDispatchToProps = dispatch => ({
     return dispatch(actions.postTransactions({[name]:value})) 
   },
 
-  postToDatabase(event, transaction, billId) {
+  postToBillThenToTrans(event, transaction) {
     event.preventDefault();
-    
-    console.log('transaction in postToDatabase is: ', transaction)
-    console.log('billId in postToDatabase is: ', billId)
 
-    fetch('/api/bills/post',
-      {
-        method: "POST",
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(transaction)
-      })
-      .then(res => res.json())
+    dispatch(asyncActions.postBill(transaction))
       .then((bill) => {
-        // console.log('bill in response to POST to /bills/post before dispatch is: ', bill)
-        return dispatch(actions.postBill(bill))
+        dispatch(asyncActions.postTransaction(bill))
       })
-      .catch(err => {
-        console.log('Error in loadFromMongo in mainContainer.js: postBill: ERROR: ', err)
-        return undefined;
-      });
-
-
-      fetch('/api/trans/transaction',
-      {
-        method: "POST",
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({transaction, billId})
-      })
-      .then(res => res.json())
-      .then((transactions) => {
-        // console.log('transactions in response to POST to /trans/post before dispatch is: ', transactions)
-        return dispatch(actions.postTransactions(transactions))
-      })
-      .catch(err => {
-        console.log('Error in loadFromMongo in mainContainer.js: PostTransactions: ERROR: ', err)
-        return undefined;
-      });
   },
 });
-
 
 class InputsContainer extends Component {
   constructor(props) {
@@ -81,10 +44,9 @@ class InputsContainer extends Component {
       <div className='inputsContainer'>
         
         <ControlsContainer 
-          postToDatabase={this.props.postToDatabase}
+          postToBillThenToTrans={this.props.postToBillThenToTrans}
           handleChange={this.props.handleChange}
           transaction={this.props.transaction}
-          billId={this.props.billId}
         />
 
         <BillsContainer 
@@ -94,6 +56,7 @@ class InputsContainer extends Component {
         <DeleteButton 
           buttonName={this.props.buttonName}
           handleClick={this.props.handleClick}
+          billId={this.props.billId}
         />
 
       </div>

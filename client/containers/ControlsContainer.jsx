@@ -12,10 +12,9 @@ class ControlsContainer extends Component {
       <div className='controlsContainer'>
         <p>ControlsContainer</p>
         <Inputs 
-          postToDatabase={this.props.postToDatabase}
+          postToBillThenToTrans={this.props.postToBillThenToTrans}
           handleChange={this.props.handleChange}
           transaction={this.props.transaction}
-          billId={this.props.billId}
         />
       </div>
     );

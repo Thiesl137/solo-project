@@ -4,34 +4,7 @@ const { DateTime } = require('luxon')
 
 const transactionsController = {};
 
-transactionsController.createTest = (req, res, next) => {
-  
-  const testTransaction = {
-    date: new Date(), 
-    type: 'income', 
-    name: 'paycheck',
-    amount: 500,
-    frequency: 'weekly'
-  }
-
-  Transactions.create(testTransaction)
-    // .exec()
-    .then(transactions => {
-      res.locals.transactions = transactions;
-      return next();
-    })
-    .catch(err => {
-      return next({
-        log: `transactionsController.createTest: ERROR: ${err}`,
-        message: {
-          err: 'Error occurred in transactionsController.createTest. Check server logs for more details...',
-        },
-      });
-    });
-}
-
-
-transactionsController.eraseAllTransactions = (req, res, next) => {
+transactionsController.deleteAllTransactions = (req, res, next) => {
   // write code here
 
   Transactions.remove({})
@@ -71,9 +44,9 @@ transactionsController.getAllTransactions = (req, res, next) => {
 transactionsController.postTransactions = (req, res, next) => {
   
   const now = DateTime.local();
-  console.log('req.body in transactionsController.postTransactions is: ', req.body)
-  const { frequency, type, name, transactionDate, amount } = req.body.transaction;
-  const { billId } = req.body;
+  
+  const { frequency, type, name, transactionDate, amount, billId } = req.body.transaction;
+
   const reoccurringTransaction = [];
   
 
@@ -124,7 +97,6 @@ transactionsController.postTransactions = (req, res, next) => {
       })
     }
   }
-  console.log('reoccurringTransaction in transactionsController.postTransactions is: ', reoccurringTransaction)
   Transactions.insertMany(reoccurringTransaction)
     .then(transactions => {
       res.locals.transactions = transactions;

@@ -26,7 +26,7 @@ const billsReducer = (state=states.billsState, action) => {
     case types.POST_BILL:
 
       bills = state.bills.slice();
-      console.log('action.payload in POST_BILL is: ', action.payload)
+
       if (action.payload.type === 'bill') {
         bills.push(action.payload);
         billId = action.payload._id
